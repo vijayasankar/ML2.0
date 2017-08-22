@@ -1,0 +1,31 @@
+.error-layout {
+  height: 100%;
+
+  & .container-wrapper {
+    height: 100%;
+  }
+}
+
+.error-layout__viewport {
+  margin-bottom: 100px;
+}
+
+.error-layout__header-logo {
+  width: 140px;
+  padding: 100px 0px 50px;
+}
+
+.page-not-found.is-submit {
+  background: var(--green-3);
+  border: 1px solid var(--green-3);
+  color: var(--grey-5);
+  position: relative;
+  line-height: 32px;
+  border-radius: 4px;
+  margin-top: 50px;
+
+  &:hover {
+    background: var(--green-2);
+    color: var(--grey-5);
+  }
+}

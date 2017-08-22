@@ -1,0 +1,47 @@
+.payments-trigger.is-view-more {
+  @apply --font-openSans;
+  color: var(--green-3);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 20px;
+  padding: 0 25px 0 0;
+  position: relative;
+  &:hover {
+    color: var(--green-3);
+    text-decoration: underline;
+  }
+  &::after {
+    content: url('../../public/providerportal/img/icon-caret-down.svg');
+    display: block;
+    height: 15px;
+    line-height: 18px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 15px;
+  }
+}
+
+.payments-list-message {
+  color: var(--black-3);
+  margin: 40px 0;
+}
+
+.ReactTable .rt-table {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.rt-td > .is-payment {
+  color: var(--red-2);
+}
+
+.rt-resizable-header {
+  background-color: var(--grey-4);
+  border: 5px var(--grey-4);
+}
+
+.rt-resizable-header-content > span {
+  color: var(--green-3);
+}

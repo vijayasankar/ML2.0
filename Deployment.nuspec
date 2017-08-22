@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>Nib.ProviderPortal</id>
+		<version>0.0</version>
+		<authors>nib NZ Limited</authors>
+		<description>The Provider Portal website.</description>
+		<language>en-NZ</language>
+		<tags>nib,online,provider,portal</tags>
+	</metadata>
+  <files>
+    <file src="dist\**" target="" />
+  </files>
+</package>

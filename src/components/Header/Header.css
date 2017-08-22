@@ -1,0 +1,177 @@
+.header-logo {
+  width: 140px;
+  padding: 30px 0px 20px;
+}
+
+.is-header {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.header-provider-select-wrapper {
+  display: inline;
+  position: relative;
+  top: 32px;
+  cursor: pointer;
+
+  &::before {
+    content: url('../../public/providerportal/img/icon-caret-down.svg');
+    display: block;
+    height: 50px;
+    line-height: 20px;
+    pointer-events: none;
+    position: absolute;
+    right: 15px;
+    top: 2px;
+    width: 15px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .is-width-20 {
+    font-size: 14px !important;
+    padding: 15px 0px 15px !important;
+  }
+
+  .is-width-25 {
+    font-size: 14px !important;
+    padding: 15px 0px 15px !important;
+  }
+
+  .header-main-menu .container {
+    width: 100%;
+    padding: 0px;
+  }
+}
+
+.is-width-20 {
+  width: 20%;
+}
+
+.is-width-25 {
+  width: 25%;
+}
+
+.is-width-33 {
+  width: 33.33%;
+}
+
+.is-width-50 {
+  width: 50%;
+}
+
+.logo-col {
+  padding-left: 0px !important;
+}
+
+.log-out-col {
+  padding-right: 0 !important;
+}
+
+.header-provider-select-wrapper > select {
+  appearance: none;
+  background: none;
+  color: var(--green-3);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: var(--normal);
+  margin: 0;
+  padding: 4px 10px 4px 10px;
+}
+
+.header-provider-select-wrapper > select::-ms-expand {
+  display: none;
+}
+
+.header-provider-select {
+  display: inline;
+  position: relative;
+  width: 335px;
+  height: 34px !important;
+}
+
+select.header-provider-select {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.header-main-menu {
+  background-color: var(--green-3);
+  font-size: 16px;
+  height: 50px;
+  outline: none;
+  position: relative;
+  text-decoration: none;
+  width: 100%;
+
+  & a {
+    color: #fff;
+    padding: 13px 0px 15px;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+    &:hover {
+      background-color: var(--green-2);
+      border-right: 2px solid var(--green-3);
+      border-left: 2px solid var(--green-3);
+      padding: 13px 0px 15px;
+      text-decoration: none;
+      height: 50px;
+    }
+
+    &:focus {
+      outline: none;
+      text-decoration: none;
+    }
+  }
+
+  & a.route--active {
+    background-color: var(--green-2);
+    font-weight: normal;
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      display: block;
+      border: inset 10px;
+      border-color: transparent transparent #fff transparent;
+      border-bottom-style: solid;
+      height: 10px;
+      position: absolute;
+      left: 50%;
+      margin-left: -10px;
+      bottom: 0;
+      width: 20px;
+    }
+  }
+}
+
+.header-logout-link,
+.header-link {
+  border: none;
+  background-color: var(--green-3);
+  color: #fff;
+  font-size: 16px;
+  position: relative;
+  top: 30px;
+  width: 85px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+
+  &:hover {
+    background-color: var(--green-2);
+    color: #fff;
+  }
+
+  &:active, &:focus, &:active:focus, &:active:hover {
+    background-color: var(--green-2);
+    border: none;
+    box-shadow: none;
+    color: #fff;
+    outline: none;
+  }
+
+}

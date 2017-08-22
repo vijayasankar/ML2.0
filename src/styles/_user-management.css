@@ -1,0 +1,46 @@
+/* .user-management__current-user-title { */
+/*   color: var(--black-4); */
+/*   font-size: 16px; */
+/*   line-height: 20px; */
+/* } */
+/*  */
+/* .user-management__current-user-text { */
+/*   color: var(--black-2); */
+/*   font-size: 16px; */
+/*   font-weight: var(--bold); */
+/*   line-height: 20px; */
+/*   padding-bottom: 10px; */
+/* } */
+
+.user-management__registered-users-row-heading {
+  border: none;
+  color: var(--black-2);
+  font-weight: var(--bold);
+}
+
+.user-management__registered-users-row {
+  border-bottom: 1px solid var(--grey-4);
+  padding: 10px 0;
+}
+
+.user-management__registered-users-row-col {
+  line-height: 30px;
+}
+
+.user-management__registered-users-trigger.is-remove {
+  color: var(--green-3);
+  cursor: pointer;
+}
+
+.user-management__create-user-trigger.is-submit {
+  background: var(--green-3);
+  border: 1px solid var(--green-3);
+  color: var(--grey-5);
+  position: relative;
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--green-2);
+    color: var(--grey-5);
+  }
+}

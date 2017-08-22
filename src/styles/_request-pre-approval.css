@@ -1,0 +1,375 @@
+/* Verify policy */
+
+.request-pre-approval__verify-policy__policy-user-form-group-list-item-wrapper {
+  padding: 0 0 20px;
+}
+.request-pre-approval__verify-policy__policy-user-form-group-list-item-wrapper:last-child {
+  padding: 0;
+}
+
+.request-pre-approval__verify-policy__policy-user-form-wrapper {
+  background: var(--grey-3);
+  margin-left: 0;
+  &:first-child {
+    padding-top: 15px;
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+  }
+  &:last-child {
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+  }
+}
+
+.request-pre-approval__verify-policy-form-group-trigger.is-policy-number,
+.request-pre-approval__verify-policy-form-group-trigger.is-dob {
+  color: var(--green-3);
+  &:hover {
+    color: var(--green-3);
+    text-decoration: underline;
+  }
+}
+
+.request-pre-approval__verify-policy-form-group-or.is-policy-number,
+.request-pre-approval__verify-policy-form-group-or.is-dob {
+  color: var(--black-4);
+}
+
+.request-pre-approval__verify-policy-form-group-date-time-picker.is-dob.rw-state-focus,
+.request-pre-approval__verify-policy-form-group-date-time-picker.is-dob.has-error.rw-state-focus {
+  border: 2px solid var(--green-5);
+}
+
+.error-message.request-pre-approval__verify-policy-form-group-error.is-dob {
+  margin: 0;
+}
+
+.request-pre-approval__verify-policy-form-trigger-wrapper {
+  line-height: 20px;
+  margin: 30px 0 100px;
+}
+
+.request-pre-approval__verify-policy-form-trigger {
+  color: var(--green-3);
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.request-pre-approval__verify-policy-form-trigger.is-cancel {
+  font-weight: var(--light);
+  border-radius: 4px;
+}
+
+.request-pre-approval__verify-policy-form-trigger.is-verify-policy {
+  background: transparent;
+  border: 0;
+  font-weight: var(--bold);
+}
+
+.request-pre-approval__verify-policy-form-trigger-separator {
+  color: var(--grey-2);
+  font-size: 18px;
+  font-weight: var(--light);
+  padding: 0 1.4rem;
+}
+
+.request-pre-approval__verify-policy-valid-title {
+  color: var(--black-4);
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.request-pre-approval__verify-policy-valid-text {
+  color: var(--black-2);
+  font-size: 16px;
+  font-weight: var(--bold);
+  line-height: 20px;
+  padding-bottom: 10px;
+}
+
+.request-pre-approval__verify-policy__policy-user-form-group-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Procedure cost */
+
+.request-pre-approval__procedure-cost-form-group.is-location.is-col-3 > .form-group > .button-group > label {
+  width: 66px;
+}
+
+.request-pre-approval__procedure-cost-form-group.is-shared-room.is-col-2 > .form-group > .button-group > label,
+.request-pre-approval__procedure-cost-form-group.is-acc-related.is-col-2 > .form-group > .button-group > label {
+  width: 102px;
+}
+
+/* Associated costs */
+
+.request-pre-approval__associated-costs-label {
+  @apply --font-openSans;
+  color: var(--black-2);
+  font-size: 16px;
+  font-weight: var(--medium);
+  line-height: 35px;
+}
+
+.request-pre-approval__associated-costs-total-label {
+  @apply --font-openSans;
+  color: var(--black-2);
+  display: inline-block;
+  font-size: 26px;
+  font-weight: var(--bold);
+}
+
+.request-pre-approval__associated-costs-total-cost {
+  @apply --font-openSans;
+  color: var(--red-2);
+  display: inline-block;
+  font-size: 26px;
+  font-weight: var(--bold);
+  padding: 0 0 0 20px;
+}
+
+/* Attach documents */
+
+.request-pre-approval__attach-documents-label {
+  @apply --font-openSans;
+  color: var(--green-3);
+  font-size: 18px;
+  font-weight: var(--normal);
+  position: relative;
+
+  &::before {
+    content: url('../../public/providerportal/img/icon-plus-o-green.svg');
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 20px;
+  }
+
+  & span {
+    display: block;
+    padding: 0 0 0 40px;
+  }
+
+  &.disabled {
+    display: none;
+  }
+
+  &.error {
+    color: var(--red-1);
+  }
+  &.error::before {
+    content: url('../../public/providerportal/img/icon-plus-o-red.svg');
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 20px;
+  }
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.request-pre-approval__attach-documents-label-disabled {
+  @apply --font-openSans;
+  color: var(--black-4);
+  display: none;
+  font-size: 18px;
+  font-weight: var(--normal);
+  position: relative;
+
+  &::before {
+    content: url('../../public/providerportal/img/icon-plus-o-grey.svg');
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 20px;
+  }
+
+  & span {
+    padding-left: 40px;
+  }
+
+  &.disabled {
+    display: block;
+  }
+}
+
+.request-pre-approval__attach-documents-label.progress {
+  border-radius: 0px;
+  box-shadow: none;
+  height: 8px;
+  margin-bottom: 0px;
+
+  &::before {
+    content: '';
+  }
+}
+
+.request-pre-approval__attach-documents-label .progress-bar {
+  background-color: var(--green-5);
+}
+
+.request-pre-approval__attach-documents-file-size {
+  color: var(--black-4);
+  display: inline;
+}
+
+.request-pre-approval__attach-documents-file-action {
+  float: right;
+}
+
+.request-pre-approval__attach-documents-abort,
+.request-pre-approval__attach-documents-delete {
+  background-color: var(--background);
+  border: none;
+
+  & img {
+    height: 15px;
+    width: 15px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.request-pre-approval__attach-documents-thumbnail {
+  max-height: 35px;
+  max-width: 35px;
+}
+
+.request-pre-approval__attach-documents-uploaded {
+  margin-bottom: 10px;
+  min-height: 35px;
+}
+
+/* Declaration */
+
+.request-pre-approval__declaration-text > p {
+  @apply --font-openSans;
+  color: var(--black-3);
+  font-weight: var(--normal);
+}
+
+.request-pre-approval__declaration-text > p > a {
+  @apply --font-openSans;
+  color: var(--green-3);
+}
+
+/* Error message */
+
+.request-pre-approval__error-message {
+  color: var(--red-1);
+  display: block;
+  padding: 10px 0;
+  text-align: right;
+}
+
+.attachDocuments {
+  color: var(--red-1);
+}
+
+/* Submitted */
+
+.request-pre-approval .full-width {
+  width: 100%;
+}
+
+.request-pre-approval__submitted-text-heading {
+  @apply --font-openSans;
+  color: var(--black-3);
+  display: inline-block;
+  font-size: 18px;
+  font-weight: var(--bold);
+  padding: 0 0 20px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.request-pre-approval__submitted-text > ul > li {
+  @apply --font-openSans;
+  color: var(--grey-2);
+  font-size: 16px;
+  font-weight: var(--normal);
+  line-height: 20px;
+  padding: 0 0 10px;
+  position: relative;
+}
+@media screen and (min-width: 1200px) {
+  .request-pre-approval__submitted-list {
+    padding-left: 12%;
+  }
+}
+
+.request-pre-approval__submitted-text > ul > li > p {
+  color: var(--black-3);
+}
+
+.request-pre-approval__submitted-trigger.is-another {
+  border: 1px solid var(--green-3);
+  color: var(--green-3);
+}
+
+.request-pre-approval__submitted-trigger.is-done {
+  background: var(--green-3);
+  border: 1px solid var(--green-3);
+  color: var(--grey-5);
+  margin: 0 0 0 10px;
+  position: relative;
+
+  &:hover {
+    background: var(--green-2);
+    color: var(--grey-5);
+  }
+}
+
+/* Form Trigger (e.g. Cancel, Submit...) */
+
+.request-pre-approval-trigger-wrapper {
+  text-align: right;
+  margin: 30px 0;
+}
+
+
+.request-pre-approval-trigger.is-cancel {
+  background: var(--grey-5);
+  border: 1px solid var(--green-3);
+  color: var(--green-3);
+  position: relative;
+  line-height: 32px;
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--grey-3);
+  }
+}
+
+.is-verify-pre-approval {
+  float: right;
+}
+
+.request-pre-approval__submitted-trigger.is-done,
+.request-pre-approval-trigger.is-submit {
+  background: var(--green-3);
+  border: 1px solid var(--green-3);
+  color: var(--grey-5);
+  position: relative;
+  line-height: 32px;
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--green-2);
+    color: var(--grey-5);
+  }
+}

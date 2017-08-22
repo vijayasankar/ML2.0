@@ -1,0 +1,39 @@
+.home-trigger.is-view-all {
+  @apply --font-openSans;
+  color: var(--green-3);
+  font-size: 20px;
+}
+
+.home__payments-list-message {
+  color: var(--black-3);
+  margin: 40px 0;
+}
+
+.home__pre-approvals-list-message {
+  color: var(--black-3);
+  margin: 40px 0;
+}
+
+/* React-table */
+
+.ReactTable .rt-table {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.rt-tr.is-approved > .rt-td {
+  font-weight: var(--bold);
+}
+
+.rt-td > .is-payment {
+  color: var(--red-2);
+}
+
+.rt-resizable-header {
+  background-color: var(--grey-4);
+  border: 5px var(--grey-4);
+}
+
+.rt-resizable-header-content > span {
+  color: var(--green-3);
+}

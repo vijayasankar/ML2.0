@@ -1,0 +1,13 @@
+.DS_STORE
+*.log
+.nyc_output/
+
+node_modules
+
+dist
+coverage
+
+.idea/
+.vscode/
+
+mocha.json

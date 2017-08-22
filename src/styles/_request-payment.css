@@ -1,0 +1,347 @@
+/* Pre-approval */
+
+.request-payment__pre-approval-form-trigger-wrapper {
+  line-height: 20px;
+  margin: 30px 0 100px;
+}
+
+.request-payment__pre-approval-form-trigger {
+  color: var(--green-3);
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.request-payment__pre-approval-form-trigger.is-cancel {
+  font-weight: var(--light);
+  border-radius: 4px;
+}
+
+.request-payment__pre-approval-form-trigger.is-verify-policy {
+  background: transparent;
+  border: 0;
+  font-weight: var(--bold);
+}
+
+.request-payment__pre-approval-form-trigger-separator {
+  color: var(--grey-2);
+  font-size: 18px;
+  font-weight: var(--light);
+  padding: 0 1.4rem;
+}
+
+.request-payment__pre-approval-valid-title {
+  color: var(--black-4);
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.request-payment__pre-approval-valid-text {
+  color: var(--black-2);
+  font-size: 16px;
+  font-weight: var(--bold);
+  line-height: 20px;
+  padding-bottom: 10px;
+}
+
+/* Invoice details */
+
+.request-payment__invoice-details-form-group.is-shared-room.is-col-2 > .form-group > .button-group > label,
+.request-payment__invoice-details-form-group.is-acc-related.is-col-2 > .form-group > .button-group > label {
+  width: 102px;
+}
+
+/* Costs */
+
+.request-payment__costs-for-anaesthetists-label,
+.request-payment__costs-for-hospitals-label,
+.request-payment__costs-for-specialists-label {
+  line-height: 35px;
+
+}
+
+.request-payment__costs-for-anaesthetists-label > em,
+.request-payment__costs-for-hospitals-label > em,
+.request-payment__costs-for-specialists-label > em {
+  color: var(--grey-1);
+  font-style: normal;
+}
+
+.request-payment__costs-for-anaesthetists-gst-label,
+.request-payment__costs-for-hospitals-gst-label,
+.request-payment__costs-for-specialists-gst-label,
+.request-payment__costs-for-anaesthetists-gst-cost,
+.request-payment__costs-for-hospitals-gst-cost,
+.request-payment__costs-for-specialists-gst-cost {
+  @apply --font-roboto;
+  color: var(--black-2);
+  display: inline-block;
+  font-size: 26px;
+  font-weight: var(--light);
+  padding: 10px 0;
+}
+
+.request-payment__costs-for-anaesthetists-gst-cost,
+.request-payment__costs-for-hospitals-gst-cost,
+.request-payment__costs-for-specialists-gst-cost {
+  padding-left: 20px;
+}
+
+.request-payment__costs-for-anaesthetists-total-label,
+.request-payment__costs-for-hospitals-total-label,
+.request-payment__costs-for-specialists-total-label {
+  @apply --font-roboto;
+  color: var(--black-2);
+  display: inline-block;
+  font-size: 26px;
+  font-weight: var(--light);
+}
+
+.request-payment__costs-for-anaesthetists-total-cost,
+.request-payment__costs-for-hospitals-total-cost,
+.request-payment__costs-for-specialists-total-cost {
+  @apply --font-roboto;
+  color: var(--red-2);
+  display: inline-block;
+  font-size: 26px;
+  font-weight: var(--bold);
+  padding: 0 0 0 20px;
+}
+
+.request-payment__costs-for-anaesthetists-form-group.is-location.is-col-3 > .form-group > .button-group > label,
+.request-payment__costs-for-hospitals-form-group.is-location.is-col-3 > .form-group > .button-group > label,
+.request-payment__costs-for-specialists-form-group.is-location.is-col-3 > .form-group > .button-group > label {
+  width: 66px;
+}
+
+/* Attach documents */
+
+.request-payment__attach-documents-label {
+  @apply --font-openSans;
+  color: var(--green-3);
+  font-size: 18px;
+  font-weight: var(--normal);
+  position: relative;
+
+  &::before {
+    content: url('../../public/providerportal/img/icon-plus-o-green.svg');
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 20px;
+  }
+
+  & span {
+    display: block;
+    padding: 0 0 0 40px;
+  }
+
+  &.disabled {
+    display: none;
+  }
+
+  &.error {
+    color: var(--red-1);
+  }
+  &.error::before {
+    content: url('../../public/providerportal/img/icon-plus-o-red.svg');
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 20px;
+  }
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.request-payment__attach-documents-label-disabled {
+  @apply --font-openSans;
+  color: var(--black-4);
+  display: none;
+  font-size: 18px;
+  font-weight: var(--normal);
+  position: relative;
+
+  &::before {
+    content: url('../../public/providerportal/img/icon-plus-o-grey.svg');
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 20px;
+  }
+
+  & span {
+    padding-left: 40px;
+  }
+
+  &.disabled {
+    display: block;
+  }
+}
+
+.request-payment__attach-documents-label.progress {
+  border-radius: 0px;
+  box-shadow: none;
+  height: 8px;
+  margin-bottom: 0px;
+
+  &::before {
+    content: '';
+  }
+}
+
+.request-payment__attach-documents-label .progress-bar {
+  background-color: var(--green-5);
+}
+
+.request-payment__attach-documents-file-size {
+  color: var(--black-4);
+  display: inline;
+}
+
+.request-payment__attach-documents-file-action {
+  float: right;
+}
+
+.request-payment__attach-documents-abort,
+.request-payment__attach-documents-delete {
+  background-color: var(--background);
+  /*background-image: url('/img/Cross.svg');*/
+  border: none;
+
+  & img {
+    height: 15px;
+    width: 15px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.request-payment__attach-documents-thumbnail {
+  max-height: 35px;
+  max-width: 35px;
+}
+
+.request-payment__attach-documents-uploaded {
+  margin-bottom: 10px;
+  min-height: 35px;
+}
+
+/* Declaration */
+
+.request-payment__declaration-text > p {
+  @apply --font-openSans;
+  color: var(--black-3);
+  font-weight: var(--normal);
+}
+
+.request-payment__declaration-text > p > a {
+  @apply --font-openSans;
+  color: var(--green-3);
+}
+
+/* Error message */
+
+.request-payment__error-message {
+  color: var(--red-1);
+  display: block;
+  padding: 10px 0;
+  text-align: right;
+}
+
+.attachDocuments {
+  color: var(--red-1);
+}
+
+/* Submitted */
+
+.request-payment .full-width {
+  width: 100%;
+  text-align: center;
+}
+
+.request-payment__submitted-text-heading {
+  @apply --font-openSans;
+  color: var(--black-3);
+  display: inline-block;
+  font-size: 18px;
+  font-weight: var(--bold);
+  padding: 0 0 20px;
+  position: relative
+}
+
+.request-payment__submitted-text > ul > li {
+  @apply --font-openSans;
+  color: var(--grey-2);
+  font-size: 16px;
+  font-weight: var(--normal);
+  line-height: 20px;
+  padding: 0 0 10px;
+  position: relative;
+}
+
+.request-payment__submitted-text > ul > li > p {
+  color: var(--black-3);
+}
+
+.request-payment__submitted-trigger.is-done {
+  background: var(--green-3);
+  border: 1px solid var(--green-3);
+  color: var(--grey-5);
+  margin: 0 0 0 10px;
+  position: relative;
+
+  &:hover {
+    background: var(--green-2);
+    color: var(--grey-5);
+  }
+}
+
+/* Form Trigger */
+
+.request-payment-trigger-wrapper {
+  text-align: right;
+  margin: 30px 0;
+}
+
+
+.request-payment-trigger.is-cancel {
+  background: var(--grey-5);
+  border: 1px solid var(--green-3);
+  color: var(--green-3);
+  position: relative;
+  line-height: 32px;
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--grey-3);
+  }
+}
+
+.is-verify-policy {
+  float: right;
+}
+
+.request-payment__submitted-trigger.is-done,
+.request-payment-trigger.is-submit {
+  background: var(--green-3);
+  border: 1px solid var(--green-3);
+  color: var(--grey-5);
+  position: relative;
+  line-height: 32px;
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--green-2);
+    color: var(--grey-5);
+  }
+}
