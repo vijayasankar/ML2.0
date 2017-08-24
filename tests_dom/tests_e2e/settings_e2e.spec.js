@@ -52,7 +52,7 @@ const myFundsSection = Selector('#myFunds')
 
 //Edit Name
 const editName = Selector('#nameEdit')
-const editNameModal = Selector('.modalBodyContent.nameModalContent')
+const editNameModal = Selector('#react-aria-modal-dialog')
 const closeEditNameModal = Selector('.closeModal')
 const emailEdit = Selector('#emailEdit')
 
@@ -240,6 +240,7 @@ test('Edit the name', async t => {
       .expect(editNameModal.exists).ok()
       .expect(editNameModal.textContent).contains('Want to change your name?')
       .expect(closeEditNameModal.exists).ok()
+      .click(closeEditNameModal)
     H.StepDescription('User logs out')
     await t
       .click(rightMenuLoggedIn.child(1))
@@ -365,7 +366,7 @@ test('Edit the location', async t => {
       .expect(settingsPageHeader.exists).ok()
       .expect(myDetailsSection.exists).ok()
       .expect(myFundsSection.exists).ok()
-    H.StepDescription('should edit the region')
+    H.StepDescription('should edit the region, Auckland then change it to Bay of Plenty')
     await t
       .expect(myDetailsSection.exists).ok()
       .expect(myFundsSection.exists).ok()
@@ -380,12 +381,15 @@ test('Edit the location', async t => {
       .click(regionPickerValue)
       .click(regionPickerValue.child(1))
       .expect(regionPickerValue.value).eql('Auckland')
-    H.StepDescription('should edit the location')
+      .click(regionPickerValue)
+      .click(regionPickerValue.child(2))
+      .expect(regionPickerValue.value).eql('Bay of Plenty')
+    H.StepDescription('should edit the location - Select Taupo')
     await t
-      //.setTestSpeed(0.1)
+      .click(editLocationSubmit)
       .click(locationPickerValue)
       .click(locationPickerValue.child(4))
-      .expect(locationPickerValue.value).eql('North Shore')
+      .expect(locationPickerValue.value).eql('Taupo')
     H.StepDescription('should enter password to save the new location change')
     await t
       .typeText(editLocationPasswordInputField, 'password1')
@@ -770,7 +774,7 @@ test('Close account', async t => {
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, 'qwerty@vj.com')
+      .typeText(email, 'asd@vj.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Clicks on Settings')
@@ -798,13 +802,13 @@ test('Close account', async t => {
     H.StepDescription('should write the feedback')
     await t
       .click(feedBack)
-      //.typeText('Sorry Lotto. I have to leave you guys..')//TODO
+      .typeText(feedBack, 'Sorry Lotto. I have to leave you guys..')//TODO
 
     H.StepDescription('should enter the password to close the account')
     await t
       .click(closeAccountPasswordInput)
       .typeText(closeAccountPasswordInput, 'password1')
-      //.click(closeAccountSubmitButton)  //TODO -- DONT CLOSE THIS ACCOUNT. THIS IS EDE RELATED USER
+      //.click(closeAccountSubmitButton)  //TODO -- DONT CLOSE THIS ACCOUNT.
       .click(ExitCloseAccountModal)
       .expect(closeAccountModal.exists).notOk()
     H.StepDescription('User logs out')
@@ -879,11 +883,71 @@ test('Spending limits', async t => {
 
     H.StepDescription('should notify the user with the message')
     const spendingLimitsNotificationModal = Selector('.top-notification-container')
-    //const spendingLimitsNotificationMessage = Selector('Your spending limits have been successfully updated. Please note that the weekly spending limit change takes effect on the following Sunday, and the monthly spending limit change takes effect on the 1st of the following month')
     await t
       .expect(spendingLimitsNotificationModal.exists).ok()
-      //.expect(spendingLimitsNotificationModal.innerText).contains(spendingLimitsNotificationMessage)
 
+    H.StepDescription('User logs out')
+    await t
+      .click(rightMenuLoggedIn.child(1))
+      .click(logout)
+      .expect(tickets.exists).notOk()
+})
+
+test('Change my bank account', async t => {
+
+
+    H.StepDescription('has navigated to Lotto SIT 1 environment')
+    H.StepDescription('should user log in')
+    await t
+      .click(login)
+      .click(loginButton)
+      .typeText(email, 'asd@vj.com')
+      .typeText(password, 'password1')
+      .click(loginSubmit)
+    H.StepDescription('Clicks on Settings')
+    await t
+      .expect(rightMenuLoggedIn.exists).ok()
+      .expect(tickets.exists).ok()
+      .click(rightMenuLoggedIn.child(1))
+      .click(settings)
+      .expect(settingsPageHeader.exists).ok()
+      .expect(myDetailsSection.exists).ok()
+      .expect(myFundsSection.exists).ok()
+    H.StepDescription('should check the elements in change bank account modal')
+    const changeBankAccountLink = Selector('#changeMyBankAccount')
+    const bankAccountNumber = Selector('#bankAccountNumber')
+    const bankAccountBank = Selector('#bankAccountBank')
+    const bankAccountBankBranch = Selector('#bankAccountBranch')
+    const bankAccountAccount = Selector('#bankAccountAccount')
+    const bankAccountSuffix = Selector('#bankAccountSuffix')
+    const bankAccountPassword = Selector('#bankAccountPassword')
+    const bankAccountForm = Selector('#bankAccountForm')
+    const bankAccountSaveButton = Selector('#bankAccountSaveButton')
+
+    await t
+      .expect(bankAccountForm.exists).notOk()
+      .click(changeBankAccountLink.parent())
+      .expect(bankAccountForm.exists).ok()
+      .expect(bankAccountNumber.exists).ok()
+      .expect(bankAccountBank.exists).ok()
+      .expect(bankAccountBankBranch.exists).ok()
+      .expect(bankAccountAccount.exists).ok()
+      .expect(bankAccountSuffix.exists).ok()
+      .expect(bankAccountPassword.exists).ok()
+      .expect(bankAccountSaveButton.exists).ok()
+
+    H.StepDescription('should enter the new bank account number')
+    await t
+      .typeText(bankAccountBank, '02')
+      .typeText(bankAccountBankBranch, '0599')
+      .typeText(bankAccountAccount, '3741896')
+      .typeText(bankAccountSuffix, '000')
+    H.StepDescription('should enter the password to update the bank account')
+    await t
+      .typeText(bankAccountPassword, 'password1')
+    H.StepDescription('should save the new bank account')
+    await t
+      .click(bankAccountSaveButton)
     H.StepDescription('User logs out')
     await t
       .click(rightMenuLoggedIn.child(1))
