@@ -1,6 +1,6 @@
-# nib NZ Provider Portal
+# ML2.0 tests
 
-A React web app nib (NZ).
+A React web app (NZ).
 
 ## Table of Contents
 1. [Template Origin](#template-origin)
@@ -20,7 +20,7 @@ A React web app nib (NZ).
   1. [Production Optimization](#production-optimization)
 
 ## Template Origin
-This template was based on https://bitbucket.org/nib-nz/nib.undergound/src/d7e9f69a44710dc448944c58237b83e4f8a566f7/react-template/.
+This template was based on <template>.
 
 ## Requirements
 * node `^6.6.0`
@@ -35,8 +35,9 @@ After confirming that your development environment meets the specified [requirem
 First, clone the project:
 
 ```bash
-$ git clone git@bitbucket.org:nib-nz/nib.undergound.git
-$ cd nib.underground/provider-portal
+$ git clone git@github.com:vijayasankar/ML2.0.git
+
+$ cd take7
 ```
 
 Then install dependencies and check to see it works. It is recommended that you use [Yarn](https://yarnpkg.com/) for deterministic installs, but `npm install` will work just as well.
@@ -192,4 +193,4 @@ This starter kit comes packaged with an Express server. It's important to note t
 ### Production Optimization
 
 Babel is configured to use [babel-plugin-transform-runtime](https://www.npmjs.com/package/babel-plugin-transform-runtime) so transforms aren't inlined. In production, webpack will extract styles to a `.css` file, minify your JavaScript, and perform additional optimizations such as module deduplication.
-# ML2.0
+
