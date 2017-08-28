@@ -167,6 +167,34 @@ const editSpendingLimitPasswordInput = Selector('#spendingLimitPassword')
 const spendingLimitsSubmitButton = Selector('#spendingLimitUpdateButton')
 
 
+//Change my bank account
+const changeBankAccountLink = Selector('#changeMyBankAccount')
+const bankAccountNumber = Selector('#bankAccountNumber')
+const bankAccountBank = Selector('#bankAccountBank')
+const bankAccountBankBranch = Selector('#bankAccountBranch')
+const bankAccountAccount = Selector('#bankAccountAccount')
+const bankAccountSuffix = Selector('#bankAccountSuffix')
+const bankAccountPassword = Selector('#bankAccountPassword')
+const bankAccountForm = Selector('#bankAccountForm')
+const bankAccountSaveButton = Selector('#bankAccountSaveButton')
+const closeBankAccountModal = Selector('#close-modal')
+
+//Financial history
+const financialHistoryLink = Selector('#financialHistory')
+const financialHistoryModal = Selector('#react-aria-modal-dialog')
+const financialHistoryForm = Selector('#financialHistoryForm')
+const transactionTypeDropDown = Selector('.select-wrapper')
+const transactionOptions = transactionTypeDropDown.find('option')
+const financialHistoryStartDate = Selector('input[name="startDate"]')
+const financialHistoryEndDate = Selector('input[name="endDate"]')
+const financialHistorySearchButton = Selector('#financial-history-submit-button')
+const financialHistoryTransactionContent = Selector('.transaction-content')
+const financialHistoryCloseModal = Selector('#close-modal')
+//const all = Selector(transactionTypeDropDown.sibling('option').nth(1))
+//const deposits = Selector(transactionTypeDropDown).withText('Deposits')
+//const purchase = Selector(transactionTypeDropDown).child(3)
+//const win = Selector(transactionTypeDropDown).child(4)
+//const withdrawal = Selector(transactionTypeDropDown).child(5)
 
 fixture `***** Verify the Settings page *****`
   .page (config.domTestRootUrl)
@@ -894,8 +922,6 @@ test('Spending limits', async t => {
 })
 
 test('Change my bank account', async t => {
-
-
     H.StepDescription('has navigated to Lotto SIT 1 environment')
     H.StepDescription('should user log in')
     await t
@@ -914,16 +940,6 @@ test('Change my bank account', async t => {
       .expect(myDetailsSection.exists).ok()
       .expect(myFundsSection.exists).ok()
     H.StepDescription('should check the elements in change bank account modal')
-    const changeBankAccountLink = Selector('#changeMyBankAccount')
-    const bankAccountNumber = Selector('#bankAccountNumber')
-    const bankAccountBank = Selector('#bankAccountBank')
-    const bankAccountBankBranch = Selector('#bankAccountBranch')
-    const bankAccountAccount = Selector('#bankAccountAccount')
-    const bankAccountSuffix = Selector('#bankAccountSuffix')
-    const bankAccountPassword = Selector('#bankAccountPassword')
-    const bankAccountForm = Selector('#bankAccountForm')
-    const bankAccountSaveButton = Selector('#bankAccountSaveButton')
-
     await t
       .expect(bankAccountForm.exists).notOk()
       .click(changeBankAccountLink.parent())
@@ -938,19 +954,123 @@ test('Change my bank account', async t => {
 
     H.StepDescription('should enter the new bank account number')
     await t
-      .typeText(bankAccountBank, '02')
-      .typeText(bankAccountBankBranch, '0599')
-      .typeText(bankAccountAccount, '3741896')
+      .typeText(bankAccountBank, '01')
+      .typeText(bankAccountBankBranch, '2942')
+      .typeText(bankAccountAccount, '6338503')
       .typeText(bankAccountSuffix, '000')
     H.StepDescription('should enter the password to update the bank account')
     await t
-      .typeText(bankAccountPassword, 'password1')
+      .click(bankAccountPassword)
+      .pressKey('ctrl+a delete')
+      .typeText(bankAccountPassword, 'password1', {speed: 0.1})
     H.StepDescription('should save the new bank account')
-    await t
-      .click(bankAccountSaveButton)
+    const disabled = async function(t)
+    {
+      const buttonDisabled = Selector(bankAccountSaveButton)
+      ok(buttonDisabled).is(':disabled')
+    }
+    //await t
+      //.expect(bankAccountSaveButton.enabled).ok('Save button is enabled', { timeout: 500 })
+    if (bankAccountSaveButton.disabled)
+    {
+      await t
+        .expect(bankAccountSaveButton.exists).ok('element exists', { timeout: 50000 })
+        .wait(10000)
+        .click(bankAccountSaveButton)
+    }
+    else
+    {
+      //await t.click(closeBankAccountModal)
+    }
     H.StepDescription('User logs out')
+    const walletBalance = Selector('#nav-menu-account-link')
     await t
+      .expect(closeBankAccountModal.exists).notOk()
+      .expect(rightMenuLoggedIn.child(1).exists).ok()
       .click(rightMenuLoggedIn.child(1))
       .click(logout)
       .expect(tickets.exists).notOk()
+})
+
+test('Financial history', async t => {
+    H.StepDescription('has navigated to Lotto SIT 1 environment')
+    H.StepDescription('should user log in')
+    await t
+      .click(login)
+      .click(loginButton)
+      .typeText(email, 'asd@vj.com')
+      .typeText(password, 'password1')
+      .click(loginSubmit)
+    H.StepDescription('Clicks on Settings')
+    await t
+      .expect(rightMenuLoggedIn.exists).ok()
+      .expect(tickets.exists).ok()
+      .click(rightMenuLoggedIn.child(1))
+      .click(settings)
+      .expect(settingsPageHeader.exists).ok()
+      .expect(myDetailsSection.exists).ok()
+      .expect(myFundsSection.exists).ok()
+    H.StepDescription('should check the elements in financial history modal')
+    await t
+      .expect(financialHistoryModal.exists).notOk()
+      .click(financialHistoryLink.parent())
+      .expect(financialHistoryModal.exists).ok()
+      .expect(financialHistoryForm.exists).ok()
+      .expect(transactionTypeDropDown.exists).ok()
+      .expect(transactionTypeDropDown.child(0).value).eql('All')
+      .expect(financialHistoryStartDate.exists).ok()
+      .expect(financialHistoryEndDate.exists).ok()
+      .expect(financialHistorySearchButton.exists).ok()
+      .expect(financialHistoryTransactionContent.exists).ok()
+      .expect(financialHistoryCloseModal.exists).ok()
+    H.StepDescription('should check the all types of transaction details')
+    await t
+      .click(transactionTypeDropDown)
+      .click(transactionOptions.withText('Show all transaction types'))
+      .click(financialHistoryStartDate)
+      .typeText(financialHistoryStartDate,'2017-05-21')
+      .click(financialHistoryEndDate)
+      .typeText(financialHistoryEndDate,'2017-07-21')
+      .click(financialHistorySearchButton)
+      .expect(financialHistoryTransactionContent.exists).ok()
+    H.StepDescription('should check the deposit transaction details')
+     await t
+      .click(transactionTypeDropDown)
+      .click(transactionOptions.withText('Deposits'))
+      .click(financialHistoryStartDate)
+      .typeText(financialHistoryStartDate,'2017-05-21')
+      .click(financialHistoryEndDate)
+      .typeText(financialHistoryEndDate,'2017-07-21')
+      .click(financialHistorySearchButton)
+      .expect(financialHistoryTransactionContent.exists).ok()
+    H.StepDescription('should check the purchase transaction details')
+    await t
+      .click(transactionTypeDropDown)
+      .click(transactionOptions.withText('Purchase'))
+      .click(financialHistoryStartDate)
+      .typeText(financialHistoryStartDate,'2017-05-21')
+      .click(financialHistoryEndDate)
+      .typeText(financialHistoryEndDate,'2017-07-21')
+      .click(financialHistorySearchButton)
+      .expect(financialHistoryTransactionContent.exists).ok()
+    H.StepDescription('should check the winning transaction details')
+    await t
+      .click(transactionTypeDropDown)
+      .click(transactionOptions.withText('Wins'))
+      .click(financialHistoryStartDate)
+      .typeText(financialHistoryStartDate,'2017-05-21')
+      .click(financialHistoryEndDate)
+      .typeText(financialHistoryEndDate,'2017-07-21')
+      .click(financialHistorySearchButton)
+      .expect(financialHistoryTransactionContent.exists).ok()
+    H.StepDescription('should check the withdrawal transaction details')
+    await t
+      .click(transactionTypeDropDown)
+      .click(transactionOptions.withText('Withdrawal'))
+      .click(financialHistoryStartDate)
+      .typeText(financialHistoryStartDate,'2017-05-21')
+      .click(financialHistoryEndDate)
+      .typeText(financialHistoryEndDate,'2017-07-21')
+      .click(financialHistorySearchButton)
+      .expect(financialHistoryTransactionContent.exists).ok()
 })
