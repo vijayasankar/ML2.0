@@ -150,4 +150,14 @@ async userLogin(email, password)
     .typeText('input[id="email"]', email)
     .typeText('input[id="password"]', password)
     .click('.button.primay.block')
-}}
+}
+
+async makeFavName() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+        for (var i = 0; i < 5; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+   }   }

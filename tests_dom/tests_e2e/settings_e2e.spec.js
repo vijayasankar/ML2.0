@@ -1,6 +1,7 @@
 import { Selector } from 'testcafe'
 import Helpers from '../test_utils/helpers'
 import config from '../test_utils/config'
+import { ClientFunction } from 'testcafe'
 
 const H = new Helpers()
 // entry points
@@ -190,11 +191,53 @@ const financialHistoryEndDate = Selector('input[name="endDate"]')
 const financialHistorySearchButton = Selector('#financial-history-submit-button')
 const financialHistoryTransactionContent = Selector('.transaction-content')
 const financialHistoryCloseModal = Selector('#close-modal')
-//const all = Selector(transactionTypeDropDown.sibling('option').nth(1))
-//const deposits = Selector(transactionTypeDropDown).withText('Deposits')
-//const purchase = Selector(transactionTypeDropDown).child(3)
-//const win = Selector(transactionTypeDropDown).child(4)
-//const withdrawal = Selector(transactionTypeDropDown).child(5)
+
+//Withdraw funds
+const withdrawFundsLink = Selector('#withdrawFunds')
+const withdrawFundsModal = Selector('#react-aria-modal-dialog')
+const currentBankAccountNumber = Selector('#bankAccountNumber')
+const editBankAccountFromWithdrawFunds = Selector('#bankAccountEdit')
+const currentWalletBalance = Selector('#your-current-balance-amount')
+const amountToWithdraw = Selector('#withdrawFundsAmount')
+const withdrawFundsPassword = Selector('#withdrawFundsPassword')
+const withdrawFundsSubmitButton = Selector('#withdrawFundsSubmitButton')
+const amountRequiredError = Selector('#transferAmount-Amountisrequired')
+const passwordRequiredError = Selector('#password-Passwordisrequired')
+const withdrawFundsCloseModal = Selector('#close-modal')
+const withdrawFundsSuccessModal = Selector('.modalFormContainer')
+const withdrawFundsSuccessCloseModal = Selector('.closeModalIcon')
+const amountDeducted = Selector('#your-current-balance-amount')
+//const balanceAfterWithdraw = Selector('.modalFormContainer').nth(2).find('#your-current-balance-amount')
+//const withdrawDoneButton = Selector(withdrawFundsSuccessModal.withText('Done'))
+const withdrawDoneButton = Selector('.button.primary.block')
+//TopUp with CreditCard
+const registerNewCard = Selector('#topUpDebitOrCreditCard')
+const existingCard = Selector('.icon-card')
+const replaceCard = Selector('#replaceCard')
+const topUpModal = Selector('.top-up.top-up-non-purchase')
+const topUpCurrentBalance = Selector('#your-current-balance-amount')
+const topUpDepositAmount = Selector('#topup-deposit-amount-input')
+const cardDetailsSection = Selector('#topup-title')
+const cardSecurityCode = Selector('#topup-cvc-input')
+const topUpPassword = Selector('#topup-mylotto-password-input')
+const topUpSubmitButton = Selector('#topup-submit-button')
+const topUpPrivacyPolicy = Selector('#myLotto-privacy-policy-link')
+const topUpCardPolicy = Selector('#myLotto-card-policy-link')
+const topUpHeaderTitle = Selector('.top-up-header-title')
+const topUpHeaderStrapline = Selector('.top-up-header-strapline')
+const topUpCreditedAmount = Selector('#you-just-deposited-amount')
+const topUpNewBalance = Selector('#your-balance-now-amount')
+const topUpDoneButton = Selector('#done-cta-button')
+const topUpCloseModal = Selector('#close-modal')
+const paymentExpressLogo = Selector('#topup-paymentexpress-image')
+const visaCardLogo = Selector('#topup-visa-image')
+const masterCardLogo = Selector('#topup-mastercard-image')
+
+//Replace New Card - Some of the elements are shared among top up with credit card
+//const cardNumber = Selector('.DpsFieldChar20.DpsFieldLegend')
+//const cardNumber = Selector('#TxnAuthCreditCard_2').child('Card number:')
+
+
 
 fixture `***** Verify the Settings page *****`
   .page (config.domTestRootUrl)
@@ -802,7 +845,7 @@ test('Close account', async t => {
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, 'asd@vj.com')
+      .typeText(email, 'poi@vj.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Clicks on Settings')
@@ -854,7 +897,7 @@ test('Spending limits', async t => {
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, '14aug1@vj.com')
+      .typeText(email, 'poi@vj.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Clicks on Settings')
@@ -969,9 +1012,7 @@ test('Change my bank account', async t => {
       const buttonDisabled = Selector(bankAccountSaveButton)
       ok(buttonDisabled).is(':disabled')
     }
-    //await t
-      //.expect(bankAccountSaveButton.enabled).ok('Save button is enabled', { timeout: 500 })
-    if (bankAccountSaveButton.disabled)
+    if (bankAccountSaveButton.disabled) //TODO Save button is not enabled - Investigation required
     {
       await t
         .expect(bankAccountSaveButton.exists).ok('element exists', { timeout: 50000 })
@@ -980,7 +1021,7 @@ test('Change my bank account', async t => {
     }
     else
     {
-      //await t.click(closeBankAccountModal)
+      await t.click(closeBankAccountModal)
     }
     H.StepDescription('User logs out')
     const walletBalance = Selector('#nav-menu-account-link')
@@ -998,7 +1039,7 @@ test('Financial history', async t => {
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, 'asd@vj.com')
+      .typeText(email, 'poi@vj.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Clicks on Settings')
@@ -1073,4 +1114,296 @@ test('Financial history', async t => {
       .typeText(financialHistoryEndDate,'2017-07-21')
       .click(financialHistorySearchButton)
       .expect(financialHistoryTransactionContent.exists).ok()
+      .click(financialHistoryCloseModal)
+
+    H.StepDescription('User logs out')
+    const walletBalance = Selector('#nav-menu-account-link')
+    await t
+      .expect(financialHistoryCloseModal.exists).notOk()
+      .expect(rightMenuLoggedIn.child(1).exists).ok()
+      .click(rightMenuLoggedIn.child(1))
+      .click(logout)
+      .expect(tickets.exists).notOk()
+})
+
+test('Withdraw funds', async t => {
+    H.StepDescription('has navigated to Lotto SIT 1 environment')
+    H.StepDescription('should user log in')
+    await t
+      .click(login)
+      .click(loginButton)
+      .typeText(email, 'poi@vj.com')
+      .typeText(password, 'password1')
+      .click(loginSubmit)
+    H.StepDescription('Clicks on Settings')
+    await t
+      .expect(rightMenuLoggedIn.exists).ok()
+      .expect(tickets.exists).ok()
+      .click(rightMenuLoggedIn.child(1))
+      .click(settings)
+      .expect(settingsPageHeader.exists).ok()
+      .expect(myDetailsSection.exists).ok()
+      .expect(myFundsSection.exists).ok()
+    H.StepDescription('should check the elements in withdraw funds modal')
+    await t
+      .expect(withdrawFundsModal.exists).notOk()
+      .click(withdrawFundsLink.parent())
+      .expect(withdrawFundsModal.exists).ok()
+      .expect(currentBankAccountNumber.exists).ok()
+      .expect(editBankAccountFromWithdrawFunds.exists).ok()
+      .expect(currentWalletBalance.exists).ok()
+      .expect(amountToWithdraw.exists).ok()
+      .expect(withdrawFundsPassword.exists).ok()
+      .expect(withdrawFundsSubmitButton.exists).ok()
+      .expect(amountRequiredError.exists).notOk()
+      .expect(passwordRequiredError.exists).notOk()
+
+    H.StepDescription('should withdraw the minimum amount')
+    const doneButton = Selector('.modalFormContainer .button.primary.block')
+   // if (currentWalletBalance.value > '10')//TODO - This condition to be satisfied
+     await t
+           .click(amountToWithdraw)
+           .typeText(amountToWithdraw,'10')
+           .click(withdrawFundsPassword)
+           .typeText(withdrawFundsPassword, 'password1')
+           .click(withdrawFundsSubmitButton)
+           .expect(withdrawFundsSuccessModal.exists).ok()
+           .expect(doneButton.exists).ok()
+           .click(doneButton)
+          // .click(withdrawFundsCloseModal)
+         //  .pressKey('tab tab enter')  //TODO workaround to tap on DONE button
+           //.click(withdrawDoneButton)
+
+//    else
+//    { await t
+//        .click(withdrawFundsCloseModal)
+//    }
+
+    H.StepDescription('User logs out')
+    await t
+      //.expect(withdrawFundsCloseModal.exists).notOk()
+      //.expect(withdrawFundsSuccessCloseModal.exists).notOk()
+      .expect(rightMenuLoggedIn.child(1).exists).ok()
+      .click(rightMenuLoggedIn.child(1))
+      .click(logout)
+      .expect(tickets.exists).notOk()
+})
+
+test('Top up with internet banking', async t => {
+    H.StepDescription('has navigated to Lotto SIT 1 environment')
+    H.StepDescription('should user log in')
+    await t
+      .click(login)
+      .click(loginButton)
+      .typeText(email, 'poi@vj.com')
+      .typeText(password, 'password1')
+      .click(loginSubmit)
+    H.StepDescription('Clicks on Settings')
+    await t
+      .expect(rightMenuLoggedIn.exists).ok()
+      .expect(tickets.exists).ok()
+      .click(rightMenuLoggedIn.child(1))
+      .click(settings)
+      .expect(settingsPageHeader.exists).ok()
+      .expect(myDetailsSection.exists).ok()
+      .expect(myFundsSection.exists).ok()
+    H.StepDescription('should check the elements in internet banking modal')
+const topUpWithInternetBankingLink = Selector('#topUpInternetBanking')
+const topUpWithInternetBankingModal = Selector('.top-up-header-title')
+const topUpWithInternetBankingHeader = Selector('.top-up-header-strapline')
+const currentBalance = Selector('#your-current-balance-result-amount')
+const internetBankingInstructions = Selector('#internet-banking-title')
+const internetBankingNotesSection = Selector('#internet-banking-note-title')
+const closeInternetBankingModal = Selector('#close-modal')
+
+    await t
+      .expect(topUpWithInternetBankingModal.exists).notOk()
+      .click(topUpWithInternetBankingLink.parent())
+      .expect(topUpWithInternetBankingModal.exists).ok()
+      .expect(currentBankAccountNumber.exists).ok()
+      .expect(topUpWithInternetBankingHeader.exists).ok()
+      .expect(currentBalance.exists).ok()
+      .expect(internetBankingInstructions.exists).ok()
+      .expect(internetBankingNotesSection.exists).ok()
+      .expect(closeInternetBankingModal.exists).ok()
+    H.StepDescription('should close the internet banking modal')
+    await t
+        .click(closeInternetBankingModal)
+    H.StepDescription('User logs out')
+    await t
+      .expect(closeInternetBankingModal.exists).notOk()
+      .expect(rightMenuLoggedIn.child(1).exists).ok()
+      .click(rightMenuLoggedIn.child(1))
+      .click(logout)
+      .expect(tickets.exists).notOk()
+})
+
+test('Top up with credit card', async t => {
+
+    H.StepDescription('has navigated to Lotto SIT 1 environment')
+    H.StepDescription('should user log in')
+    await t
+      .click(login)
+      .click(loginButton)
+      .typeText(email, 'zxc@vj.com')
+      .typeText(password, 'password1')
+      .click(loginSubmit)
+    H.StepDescription('Clicks on Settings')
+    await t
+      .expect(rightMenuLoggedIn.exists).ok()
+      .expect(tickets.exists).ok()
+      .click(rightMenuLoggedIn.child(1))
+      .click(settings)
+      .expect(settingsPageHeader.exists).ok()
+      .expect(myDetailsSection.exists).ok()
+      .expect(myFundsSection.exists).ok()
+    H.StepDescription('should check the elements in top up modal')
+    await t
+      .expect(registerNewCard.exists).notOk()
+      .expect(existingCard.exists).ok()
+      .expect(replaceCard.exists).ok()
+      .click(existingCard)
+      .expect(topUpHeaderTitle.innerText).eql('Top up')
+      .expect(topUpModal.exists).ok()
+      .expect(topUpCurrentBalance.exists).ok()
+      .expect(topUpDepositAmount.exists).ok()
+      .expect(cardDetailsSection.exists).ok()
+      .expect(cardSecurityCode.exists).ok()
+      .expect(topUpPassword.exists).ok()
+      .expect(topUpSubmitButton.exists).ok()
+      .expect(topUpPrivacyPolicy.exists).ok()
+      .expect(topUpCardPolicy.exists).ok()
+    H.StepDescription('should top up with specified amount')
+    await t
+        .click(topUpDepositAmount)
+        .typeText(topUpDepositAmount, '10')
+        .click(cardSecurityCode)
+        .typeText(cardSecurityCode, '123')
+        .click(topUpPassword)
+        .typeText(topUpPassword, 'password1')
+        .click(topUpSubmitButton)
+    H.StepDescription('should display top up success modal')
+    await t
+         .expect(topUpHeaderTitle.innerText).eql('Top up successful')
+         .expect(topUpCreditedAmount.innerText).contains('$10.00')
+         .expect(topUpNewBalance.exists).ok()
+         .expect(topUpDoneButton.exists).ok()
+         .click(topUpDoneButton)
+         .expect(topUpCloseModal.exists).notOk()
+
+    H.StepDescription('User logs out')
+    await t
+      .click(rightMenuLoggedIn.child(1))
+      .click(logout)
+      .expect(tickets.exists).notOk()
+})
+
+test('Replace credit card', async t => {
+
+    H.StepDescription('has navigated to Lotto SIT 1 environment')
+    H.StepDescription('should user log in')
+    await t
+      .click(login)
+      .click(loginButton)
+      .typeText(email, 'zxc@vj.com')
+      .typeText(password, 'password1')
+      .click(loginSubmit)
+    H.StepDescription('Clicks on Settings')
+    await t
+      .expect(rightMenuLoggedIn.exists).ok()
+      .expect(tickets.exists).ok()
+      .click(rightMenuLoggedIn.child(1))
+      .click(settings)
+      .expect(settingsPageHeader.exists).ok()
+      .expect(myDetailsSection.exists).ok()
+      .expect(myFundsSection.exists).ok()
+    H.StepDescription('should enter the password in Step-1 in replace card modal')
+    await t
+      .expect(registerNewCard.exists).notOk()
+      .expect(existingCard.exists).ok()
+      .expect(replaceCard.exists).ok()
+      .click(replaceCard.parent())
+      .expect(topUpHeaderTitle.innerText).eql('Replace card')
+      .expect(topUpHeaderStrapline.innerText).eql('Step 1: Enter your MyLotto password')
+      .expect(topUpPassword.exists).ok()
+      .expect(topUpSubmitButton.exists).ok()
+      .expect(topUpSubmitButton.innerText).eql('NEXT')
+      .expect(paymentExpressLogo.exists).ok()
+      .expect(topUpCloseModal.exists).ok()
+      .expect(topUpPrivacyPolicy.exists).notOk()
+      .expect(topUpCardPolicy.exists).notOk()
+      .click(topUpPassword)
+      .typeText(topUpPassword, 'password1')
+      .click(topUpSubmitButton)
+
+    H.StepDescription('should fill the card details in Step-2 ')
+
+    const cardNumber = Selector('input[name="CardNumber"]')
+    const cardName = Selector('input[name="CardHolderName"]')
+    const cardExpiryMonth = Selector('#DateExpiry_1')
+    const cardExpiryYear = Selector('#DateExpiry_2')
+    const cardCvcCode = Selector('input[name="Cvc2"]')
+    const cardSaveButton = Selector('.DpsButton1.DpsPxPayOK')
+    const topUpButtonFromSavedCard = Selector('#topup-cta-button')
+    const topupChildModal = Selector('.form-top-up')
+    const topUpIframe = Selector('.pxPayIframe')
+
+    await t
+        .expect(topUpHeaderTitle.innerText).eql('Replace card')
+        .expect(topUpHeaderStrapline.innerText).eql('Step 2: Enter your card details  ')
+        .expect(visaCardLogo.exists).ok()
+        .expect(masterCardLogo.exists).ok()
+        .expect(topupChildModal.exists).ok()
+        .switchToIframe(topUpIframe)
+    await t
+        .wait(1000)
+        .click(cardNumber)
+        .typeText(cardNumber, '4111111111111111')
+        .expect(cardName.exists).ok()
+        .typeText(cardName, 'Vijay Test')
+        .expect(cardExpiryMonth.exists).ok()
+        .click(cardExpiryMonth)
+        .pressKey('down enter')
+        .click(cardExpiryYear)
+        .pressKey('down enter')
+        .click(cardCvcCode)
+        .typeText(cardCvcCode, '123')
+        .click(cardSaveButton)
+        .switchToMainWindow()
+
+    H.StepDescription('should display Card saved! modal')
+    const newCardSummary = Selector('#top-up-with-a-credit-card-summary')
+    await t
+         .expect(topUpHeaderTitle.innerText).eql('Card saved!')
+         .expect(newCardSummary.exists).ok()
+         .expect(topUpButtonFromSavedCard.exists).ok()
+         .expect(topUpDoneButton.exists).ok()
+         .expect(paymentExpressLogo.exists).ok()
+         .expect(topUpCloseModal.exists).ok()
+
+    H.StepDescription('should topup using the replaced card')
+    await t
+          .click(topUpButtonFromSavedCard)
+          .click(topUpDepositAmount)
+          .typeText(topUpDepositAmount, '10')
+          .click(cardSecurityCode)
+          .typeText(cardSecurityCode, '123')
+          .click(topUpPassword)
+          .typeText(topUpPassword, 'password1')
+          .click(topUpSubmitButton)
+
+    H.StepDescription('should display top up success modal')
+    await t
+          .expect(topUpHeaderTitle.innerText).eql('Top up successful')
+          .expect(topUpCreditedAmount.innerText).contains('$10.00')
+          .expect(topUpNewBalance.exists).ok()
+          .expect(topUpDoneButton.exists).ok()
+          .click(topUpDoneButton)
+          .expect(topUpCloseModal.exists).notOk()
+
+    H.StepDescription('User logs out')
+    await t
+      .click(rightMenuLoggedIn.child(1))
+      .click(logout)
+      .expect(tickets.exists).notOk()
 })
