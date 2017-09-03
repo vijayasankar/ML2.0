@@ -382,6 +382,7 @@ test('Purchase Lotto - PYO single draw', async t => {
       .expect(viewDetailsButton.exists).ok()
       .click(viewDetailsButton)
     H.StepDescription('should save the PYO as Favourite')
+    await t
       .expect(editNamePYO2Fav.exists).ok()
       .expect(drawHappeningPYO.exists).ok()
       .expect(ticketBodyPYO.exists).ok()
@@ -739,6 +740,9 @@ test('Purchase StrikeOnly - Dips single draw', async t => {
       .expect(strikeDipsSlider.value).eql('0')
       .expect(strikeTicket.exists).ok()
       .expect(strikeNumbers.exists).ok()
+      .expect(buyNowPrice.innerText).eql('$0.00')
+      .typeText(strikeDipsSlider, '2')
+      .expect(strikeDipsSlider.value).eql('2')
       .expect(buyNowPrice.innerText).eql('$2.00')
       .click(buyButton)
 

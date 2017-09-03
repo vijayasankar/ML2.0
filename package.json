@@ -18,7 +18,7 @@
     "test:bamboo": "better-npm-run test -R mocha-bamboo-reporter",
     "test:dev": "npm run test -- --watch",
     "dom-test": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/*.spec.js",
-    "e2e-test": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/tests_e2e/**/*.spec.js",
+    "e2e-test": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
     "e2e-browser-test": "./node_modules/.bin/testcafe --color chrome,firefox,ie,edge  tests_dom/tests_e2e/**/*.spec.js",
     "e2e-chrome-test": "./node_modules/.bin/testcafe --color chrome tests_dom/tests_e2e/**/*.spec.js",
     "karma-test": "better-npm-run karma-test",
