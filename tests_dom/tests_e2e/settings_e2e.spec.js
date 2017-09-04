@@ -928,21 +928,32 @@ test('Spending limits', async t => {
 
     H.StepDescription('should edit the weekly spending limit')
     const slider = Selector('.slider-lower-fill.max')
-    await t
-      .click(slider)
-      .expect(weeklySpendingLimitSlider.value).eql('150')
-      .setTestSpeed(0.1)
+    const currentWeeklySpendingLimit = weeklySpendingLimitSlider.value
+    const newWeeklySpendingLimit = currentWeeklySpendingLimit - 1
+    const weeklyLimitSlider = Selector('input[name="weeklySpendingLimit"]')
+        await t
+//      .expect(weeklyLimitSlider.exists).ok()
+//      .click(weeklyLimitSlider)
+//      .typeText(weeklyLimitSlider, '140' )
+//      .expect(weeklyLimitSlider.value).eql('140')
+//      .click(slider)
+//      .expect(weeklySpendingLimitSlider.value).eql('150')
+//      .setTestSpeed(0.1)
       //TODO .drag(slider, -180, -5, { offsetX: 500, offsetY: 10 })
       //.drag(weeklySpendingLimitSlider, -180, -5, { offsetX: 480, offsetY: 15 })
       //.drag(weeklySpendingLimitSlider, 360, 5)
       //.expect(weeklySpendingLimitSlider.value).eql('100');
-
+        .pressKey('tab tab tab')
+         .click(weeklyLimitSlider)
+        //.setTestSpeed(0.1)
+        .pressKey('down')
+        .expect(weeklyLimitSlider.value).eql('150')
     H.StepDescription('should edit the monthly spending limit')
     //const slider = Selector('.slider-lower-fill.max')
     await t
       .click(slider)
       .expect(weeklySpendingLimitSlider.value).eql('150')
-      .setTestSpeed(0.1)
+      //.setTestSpeed(0.1)
       //TODO .drag(slider, -180, -5, { offsetX: 500, offsetY: 10 })
       //TODO Check with Ken Wong
 
