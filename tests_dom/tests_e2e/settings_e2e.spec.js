@@ -233,12 +233,6 @@ const paymentExpressLogo = Selector('#topup-paymentexpress-image')
 const visaCardLogo = Selector('#topup-visa-image')
 const masterCardLogo = Selector('#topup-mastercard-image')
 
-//Replace New Card - Some of the elements are shared among top up with credit card
-//const cardNumber = Selector('.DpsFieldChar20.DpsFieldLegend')
-//const cardNumber = Selector('#TxnAuthCreditCard_2').child('Card number:')
-
-
-
 fixture `***** Verify the Settings page *****`
   .page (config.domTestRootUrl)
 
@@ -845,7 +839,7 @@ test('Close account', async t => {
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, 'poi@vj.com')
+      .typeText(email, 'lotto1@test.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Clicks on Settings')
@@ -1143,7 +1137,7 @@ test('Withdraw funds', async t => {
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, 'poi@vj.com')
+      .typeText(email, 'lotto1@test.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Clicks on Settings')
@@ -1206,7 +1200,7 @@ test('Top up with internet banking', async t => {
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, 'poi@vj.com')
+      .typeText(email, 'lotto1@test.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Clicks on Settings')
@@ -1226,7 +1220,6 @@ const currentBalance = Selector('#your-current-balance-result-amount')
 const internetBankingInstructions = Selector('#internet-banking-title')
 const internetBankingNotesSection = Selector('#internet-banking-note-title')
 const closeInternetBankingModal = Selector('#close-modal')
-
     await t
       .expect(topUpWithInternetBankingModal.exists).notOk()
       .click(topUpWithInternetBankingLink.parent())

@@ -107,7 +107,7 @@ const kenoViewOdds = Selector('.odds')
 const kenoTicketDetailsSummary = Selector('.ticket-totals')
 const kenoTicketTypeInSummary = Selector('.multi-draw-table')
 const kenoTotalNumberOfDraws = Selector('#totals-number-of-draws').nth(0)
-const kenoPricePerDraw = Selector('.daily-row').nth(1)
+const kenoPricePerDraw = Selector('#totals-number-of-draws').nth(1)
 const kenoTotalCost = Selector('.summary-box').nth(1)
 const kenoConfirmPurchase = Selector('#keno-submit-button')
 
@@ -127,6 +127,8 @@ const saveFavName = Selector ('#favouriteTicketSave')
 const drawHappeningPYO = Selector('#ticketLottoTitleDrawHappening0')
 const kenoTicketBodyPYO = Selector('#TicketRowKeno')
 const kenoDrawSummaryPYO = Selector('.gameTicketFooterSummaries')
+
+
 fixture `***** Verify the games in Keno family *****`
   .page (config.domTestRootUrl)
 
@@ -199,6 +201,7 @@ test('Purchase Keno Dip - 1 dollar dip for next draw', async t => {
       .click(kenoConfirmPurchase)
     H.StepDescription('should display the thanks page')
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       .expect(thanksIntroDescription.exists).ok()
       .expect(purchasedTicketHeader.exists).ok()
@@ -335,6 +338,7 @@ test('Purchase Keno PYO - Autofill', async t => {
       .wait(1000)
     H.StepDescription('should display the Keno thanks page')
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       .expect(thanksIntroDescription.exists).ok()
       .expect(purchasedTicketHeader.exists).ok()

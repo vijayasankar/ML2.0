@@ -172,7 +172,7 @@ const costOfStrikePerDraw = Selector('#totals-strike-cost')
 fixture `***** Verify the games in Lotto family *****`
   .page (config.domTestRootUrl)
 
-test('Purchase Lotto - 5.80 single draw', async t => {
+test('Purchase Lotto - Dip single draw', async t => {
     H.StepDescription('has navigated to Lotto SIT 1 environment')
     H.StepDescription('should login with valid credentials')
     await t
@@ -209,6 +209,7 @@ test('Purchase Lotto - 5.80 single draw', async t => {
            await t
               .click(burgerMenuIcon)
               .click(lottoStrikeLinkFromLeft)
+              .click(luckyDip0580)
     }
     await t
       .expect(totalCost0580.exists).ok()
@@ -239,6 +240,7 @@ test('Purchase Lotto - 5.80 single draw', async t => {
       .click(confirmPurchase)
     H.StepDescription('should display the thanks page')
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       .expect(thanksIntroDescription.exists).ok()
       .expect(purchasedTicketHeader.exists).ok()
@@ -368,8 +370,8 @@ test('Purchase Lotto - PYO single draw', async t => {
       .expect(confirmPurchase.exists).ok()
       .click(confirmPurchase)
     H.StepDescription('should display the thanks page')
-
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       .expect(thanksIntroDescription.exists).ok()
       .expect(purchasedTicketHeader.exists).ok()
@@ -398,7 +400,7 @@ test('Purchase Lotto - PYO single draw', async t => {
       .expect(tickets.exists).notOk()
 })
 
-test('Subscription - TripleDip/SatOnly/3months/MyLottoAccount - Start/Stop/Restart/Delete', async t => {
+test('Subscription - Start/Stop/Restart/Delete', async t => {
     H.StepDescription('has navigated to Lotto SIT 1 environment')
     H.StepDescription('should login with valid credentials')
     await t
@@ -634,14 +636,14 @@ test('Purchase StrikeOnly - PYO single draw', async t => {
       .expect(strikeDipsSlider.value).eql('0')
       .expect(buyNowPrice.innerText).eql('$1.00')
       .click(strikeRefresh.nth(0))
-      .click(strikeNumber1)
+    await t.click(strikeNumber1)
       //.expect(strikeNumber1.hasClass('.strikeNumberWrapperSelectedShadow')).ok()
       .expect(strikeB1.innerText).eql('1\n')
-      .click(strikeNumber2)
+    await t.click(strikeNumber2)
       .expect(strikeB2.innerText).eql('2\n')
-      .click(strikeNumber3)
+    await t.click(strikeNumber3)
       .expect(strikeB3.innerText).eql('3\n')
-      .click(strikeNumber4)
+    await t.click(strikeNumber4)
       .expect(strikeB4.innerText).eql('4\n')
       .expect(strikeDipsSlider.value).eql('0')
       .expect(buyNowPrice.innerText).eql('$2.00')
@@ -661,6 +663,7 @@ test('Purchase StrikeOnly - PYO single draw', async t => {
       .click(confirmPurchase)
     H.StepDescription('should display the thanks page')
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       //.expect(thanksPageHeader.innerText).eql('Good luck,\nyou're in to win!')
       .expect(thanksIntroDescription.exists).ok()
@@ -707,6 +710,7 @@ test('Purchase StrikeOnly - Dips single draw', async t => {
       .click(loginSubmit)
     H.StepDescription('should confirm the login')
     await t
+      .wait(1000)
       .expect(rightMenuLoggedIn.exists).ok()
       .expect(tickets.exists).ok()
       .click(rightMenuLoggedIn.child(1))
@@ -777,6 +781,7 @@ test('Purchase StrikeOnly - Dips single draw', async t => {
       .click(confirmPurchase)
     H.StepDescription('should display the thanks page')
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       //.expect(thanksPageHeader.innerText).eql('Good luck,\nyou're in to win!')
       .expect(thanksIntroDescription.exists).ok()
