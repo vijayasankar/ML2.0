@@ -1249,7 +1249,7 @@ test('Top up with credit card', async t => {
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, 'zxc@vj.com')
+      .typeText(email, 'asd@vj.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Clicks on Settings')
@@ -1280,7 +1280,7 @@ test('Top up with credit card', async t => {
     H.StepDescription('should top up with specified amount')
     await t
         .click(topUpDepositAmount)
-        .typeText(topUpDepositAmount, '10')
+        .typeText(topUpDepositAmount, '1')
         .click(cardSecurityCode)
         .typeText(cardSecurityCode, '123')
         .click(topUpPassword)
@@ -1289,7 +1289,7 @@ test('Top up with credit card', async t => {
     H.StepDescription('should display top up success modal')
     await t
          .expect(topUpHeaderTitle.innerText).eql('Top up successful')
-         .expect(topUpCreditedAmount.innerText).contains('$10.00')
+         .expect(topUpCreditedAmount.innerText).contains('$1.00')
          .expect(topUpNewBalance.exists).ok()
          .expect(topUpDoneButton.exists).ok()
          .click(topUpDoneButton)
@@ -1309,7 +1309,7 @@ test('Replace credit card', async t => {
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, 'zxc@vj.com')
+      .typeText(email, 'asd@vj.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Clicks on Settings')
@@ -1389,7 +1389,7 @@ test('Replace credit card', async t => {
     await t
           .click(topUpButtonFromSavedCard)
           .click(topUpDepositAmount)
-          .typeText(topUpDepositAmount, '10')
+          .typeText(topUpDepositAmount, '2')
           .click(cardSecurityCode)
           .typeText(cardSecurityCode, '123')
           .click(topUpPassword)
@@ -1399,7 +1399,7 @@ test('Replace credit card', async t => {
     H.StepDescription('should display top up success modal')
     await t
           .expect(topUpHeaderTitle.innerText).eql('Top up successful')
-          .expect(topUpCreditedAmount.innerText).contains('$10.00')
+          .expect(topUpCreditedAmount.innerText).contains('$2.00')
           .expect(topUpNewBalance.exists).ok()
           .expect(topUpDoneButton.exists).ok()
           .click(topUpDoneButton)

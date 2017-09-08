@@ -124,22 +124,47 @@ export default class Helpers {
     return await option.innerText
   }
  async makeEmail() {
-    var strValues = "abcdefg12345";
+    var strValues = "abcdefghijklmnopqrstuvwxyz1234567890";
     var strEmail = "";
     var strTmp;
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 6; i++) {
         strTmp = strValues.charAt(Math.round(strValues.length * Math.random()));
         strEmail = strEmail + strTmp;
         }
         strTmp = "";
-        strEmail = strEmail + "@";
-    for (var j = 0; j < 8; j++) {
-        strTmp = strValues.charAt(Math.round(strValues.length * Math.random()));
-        strEmail = strEmail + strTmp;
-        }
-        strEmail = strEmail + ".com"
+        strEmail = strEmail + "@sit1.com"
     return strEmail;
+}
+async makePhoneNumber() {
+        var text = "";
+        var possible = "1234567890";
+        for (var i = 0; i < 7; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+   }
 
+ getActivationCode()
+{
+return new Promise((resolve, reject) => {
+var ibmdb = require('ibm_db');
+var code = "";
+ibmdb.open("DATABASE=ESI_DB;HOSTNAME=192.168.225.66;PORT=50000;UID=gtkinst1;PWD=gtkinst1;PROTOCOL=TCPIP", function (err,conn) {
+  if (err) reject(err);
+  conn.query('Select NZDEV.ES_SECURITY.ACTIVATION_ID From NZDEV.ES_SECURITY order by insrt_dt desc FETCH FIRST 1 ROW ONLY', function (err, data) {
+    if (err)  {
+    console.log(err);
+    reject(err)
+    }
+    else (
+    console.log(data));
+
+    conn.close(function () {
+      console.log('done');
+    });
+    resolve(data[0].ACTIVATION_ID);
+  } );
+});
+});
 }
 
 async userLogin(email, password)

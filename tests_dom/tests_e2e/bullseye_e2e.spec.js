@@ -223,6 +223,7 @@ test('Bullseye Dip - 2 dollar option', async t => {
       .click(bullseyeConfirmPurchase)
     H.StepDescription('should display the thanks page')
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       .expect(thanksIntroDescription.exists).ok()
       .expect(purchasedTicketHeader.exists).ok()
@@ -330,6 +331,7 @@ test('Bullseye Dip - Dip slider option', async t => {
       .click(bullseyeConfirmPurchase)
     H.StepDescription('should display the thanks page')
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       .expect(thanksIntroDescription.exists).ok()
       .expect(purchasedTicketHeader.exists).ok()
@@ -448,6 +450,7 @@ test('Bullseye PYO - Autofill', async t => {
       .click(bullseyeConfirmPurchase)
     H.StepDescription('should display the thanks page')
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       .expect(thanksIntroDescription.exists).ok()
       .expect(purchasedTicketHeader.exists).ok()
@@ -623,6 +626,7 @@ test('Bullseye PYO - manual selection', async t => {
       .click(bullseyeConfirmPurchase)
     H.StepDescription('should display the thanks page')
     await t
+      .wait(1000)
       .expect(thanksPageHeader.exists).ok()
       .expect(thanksIntroDescription.exists).ok()
       .expect(purchasedTicketHeader.exists).ok()
@@ -702,12 +706,7 @@ test('Bullseye - How to play', async t => {
       .expect(bullseyeHowItWorks.innerText).eql('How it works')
       .expect(bullseye3WaysToPlay.exists).ok()
       .expect(bullseye3WaysToPlay.innerText).eql('Three ways to play')
-      .expect(bullseye3WaysToPlayDipButton.exists).ok()
-      .expect(bullseye3WaysToPlayDipButton.innerText).eql('BUY A DIP')
-      .expect(bullseye3WaysToPlayPyoButton.exists).ok()
-      .expect(bullseye3WaysToPlayPyoButton.innerText).eql('PICK YOURS NOW')
-      .expect(bullseye3WaysToPlayFavButton.exists).ok()
-      .expect(bullseye3WaysToPlayFavButton.innerText).eql('CREATE FAVOURITE')
+//thanks
       .expect(bullseyeWinningNumbers.exists).ok()
     H.StepDescription('User logs out')
     await t
