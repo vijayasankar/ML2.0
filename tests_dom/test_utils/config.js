@@ -1,7 +1,7 @@
 // !!!!! NOTE: changing domTestRootUrl also requires changing .testcafe-electron-rc
 let config = {
   domTestRootUrl: 'https://1.sit.mylotto.co.nz/',
-  //testUrl: 'www.google.co.nz/',
+  //sit2Url: 'https://2.sit.mylotto.co.nz/',
   showBrowser: true,
   devTools: false
 }

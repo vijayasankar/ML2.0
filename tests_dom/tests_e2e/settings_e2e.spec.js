@@ -1001,11 +1001,12 @@ test('Change my bank account', async t => {
       .expect(bankAccountSaveButton.exists).ok()
 
     H.StepDescription('should enter the new bank account number')
+    const bank4 = await H.bank4()
     await t
-      .typeText(bankAccountBank, '01')
-      .typeText(bankAccountBankBranch, '2942')
-      .typeText(bankAccountAccount, '6338503')
-      .typeText(bankAccountSuffix, '000')
+      .typeText(bankAccountBank, '24')
+      .typeText(bankAccountBankBranch, '4330')
+      .typeText(bankAccountAccount, '7977831')
+      .typeText(bankAccountSuffix, bank4)
     H.StepDescription('should enter the password to update the bank account')
     await t
       .click(bankAccountPassword)

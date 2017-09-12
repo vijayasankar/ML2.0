@@ -143,7 +143,7 @@ async makePhoneNumber() {
         return text;
    }
 
- getActivationCode()
+getActivationCode()
 {
 return new Promise((resolve, reject) => {
 var ibmdb = require('ibm_db');
@@ -157,9 +157,8 @@ ibmdb.open("DATABASE=ESI_DB;HOSTNAME=192.168.225.66;PORT=50000;UID=gtkinst1;PWD=
     }
     else (
     console.log(data));
-
     conn.close(function () {
-      console.log('done');
+    console.log('done');
     });
     resolve(data[0].ACTIVATION_ID);
   } );
@@ -167,6 +166,37 @@ ibmdb.open("DATABASE=ESI_DB;HOSTNAME=192.168.225.66;PORT=50000;UID=gtkinst1;PWD=
 });
 }
 
+async bank1() {
+        var text = "";
+        var possible = "01";
+        for (var i = 0; i < 2; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+   }
+
+async bank2() {
+        var text = "";
+        var possible = "0123456789";
+        for (var i = 0; i < 4; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+   }
+
+async bank3() {
+        var text = "";
+        var possible = "0123456789";
+        for (var i = 0; i < 7; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+   }
+
+async bank4() {
+        var text = "";
+        var possible = "0123456789";
+        for (var i = 0; i < 3; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+   }
 async userLogin(email, password)
 {
  await t.click('input[id="nav-menu-account--link"]')
