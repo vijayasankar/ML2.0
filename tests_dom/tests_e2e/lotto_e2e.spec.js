@@ -1,7 +1,9 @@
 import { Selector } from 'testcafe'
 import Helpers from '../test_utils/helpers'
 import config from '../test_utils/config'
+import { ClientFunction } from 'testcafe';
 
+const getWindowWidth = ClientFunction(() => window.width);
 const H = new Helpers()
 // entry points
 //Lotto LandingPage components - Before login
@@ -46,15 +48,15 @@ const favourites = Selector ('[href="/my-tickets/favourites"]')
 const logout = Selector('.navMenuItem').withText('Log out')
 
 //Lotto Dip
-    const burgerMenuIcon = Selector('#nav-menu-main-menu')
-    const lottoStrikeLinkFromLeft = Selector('#navLottoleft')
-    const LottoStrikeLinkFromTop = Selector('.navLotto.logoMenuItem')
-    const lottoBuyDip = Selector('#buyADip')
-    const lottoPYO = Selector('#pickYourOwn')
-    const textServiceButton = Selector('#textService')
-    const buyStrike = Selector('#buyStrike')
-    const eCommerceBar = Selector('#ecommerceBar')
-    const eCommerceMaximize = Selector('#maximiseBar')
+const burgerMenuIcon = Selector('#nav-menu-main-menu')
+const lottoStrikeLinkFromLeft = Selector('#navLottoleft' ,{visibilityCheck: true})
+const LottoStrikeLinkFromTop = Selector('#navLottosecondary' ,{visibilityCheck: true})
+const lottoBuyDip = Selector('#buyADip')
+const lottoPYO = Selector('#pickYourOwn')
+const textServiceButton = Selector('#textService')
+const buyStrike = Selector('#buyStrike')
+const eCommerceBar = Selector('#ecommerceBar')
+const eCommerceMaximize = Selector('#maximiseBar')
     const ecommerceBarBuyButton = Selector('#buyButton')
     const buyADipHeader = Selector('#lottoDips > div.scrollView > div.l-section-content > div > div > div')
     const luckyDip0580 = Selector('#luckyDipSash > div.dipItemWrapper > a:nth-child(1)')
@@ -168,38 +170,46 @@ const editStrikeTicketFromPreview = Selector('#editYourStrikeTicket')
 const numberOfStrikeLines = Selector('#totals-strike-boards')
 const costOfStrikePerDraw = Selector('#totals-strike-cost')
 
-
 fixture `***** Verify the games in Lotto family *****`
   .page (config.domTestRootUrl)
 
 test('Purchase Lotto - Dip single draw', async t => {
-    H.StepDescription('has navigated to Lotto SIT 1 environment')
-    H.StepDescription('should login with valid credentials')
-    await t
-      .click(login)
-      .click(loginButton)
-      .typeText(email, 'lotto1@test.com')
-      .typeText(password, 'password1')
-      .click(loginSubmit)
-    H.StepDescription('should confirm the login')
-    await t
-      .expect(rightMenuLoggedIn.exists).ok()
-      .expect(tickets.exists).ok()
-      .click(rightMenuLoggedIn.child(1))
-      .expect(accountDetails.exists).ok()
-      .expect(accountWelcome.exists).ok()
-      .expect(accountEmail.exists).ok()
-      .expect(accountBalance.exists).ok()
-      .expect(topUpButton.exists).ok()
-      .expect(settings.exists).ok()
-      .expect(myTickets.exists).ok()
-      .expect(messages.exists).ok()
-      .expect(favourites.exists).ok()
-      .expect(logout.exists).ok()
-      .click(closeRightMenu)
-    H.StepDescription('should select $5.80 Lotto dip')
-    if(LottoStrikeLinkFromTop.exists)
-        {  await t
+  H.StepDescription('has navigated to Lotto SIT 1 environment')
+  H.StepDescription('should login with valid credentials')
+  await t
+    .click(login)
+    .click(loginButton)
+    .typeText(email, 'lotto1@test.com')
+    .typeText(password, 'password1')
+    .click(loginSubmit)
+  H.StepDescription('should confirm the login')
+  await t
+    .expect(rightMenuLoggedIn.exists).ok()
+    .expect(tickets.exists).ok()
+    .click(rightMenuLoggedIn.child(1))
+    .expect(accountDetails.exists).ok()
+    .expect(accountWelcome.exists).ok()
+    .expect(accountEmail.exists).ok()
+    .expect(accountBalance.exists).ok()
+    .expect(topUpButton.exists).ok()
+    .expect(settings.exists).ok()
+    .expect(myTickets.exists).ok()
+    .expect(messages.exists).ok()
+    .expect(favourites.exists).ok()
+    .expect(logout.exists).ok()
+    .click(closeRightMenu)
+  H.StepDescription('should select $5.80 Lotto dip')
+  function responsiveFn() {
+       width = $( window ).width();
+       height = $( window ).height();
+
+    // Executing Both width() and height()
+    document.getElementById('widthID').innerHTML=width;
+    document.getElementById('heightID').innerHTML=height;
+   }
+  if(width > 570)
+        {
+         await t
               .click(LottoStrikeLinkFromTop)
               .click(lottoBuyDip)
               .click(luckyDip0580)
@@ -211,48 +221,49 @@ test('Purchase Lotto - Dip single draw', async t => {
               .click(lottoStrikeLinkFromLeft)
               .click(luckyDip0580)
     }
+
     await t
       .expect(totalCost0580.exists).ok()
       .expect(buyButton.exists).ok()
       .click(buyButton)
-    H.StepDescription('should preview the $5.80 Lotto dip')
-    await t
-      .expect(powerBallUpSell.exists).ok()
-      .expect(saturdayDraw.exists).ok()
-      .expect(wednesdayDraw.exists).ok()
-      .expect(previewYourSelection.exists).ok()
-      .click(previewYourSelection)
-      .expect(ticketPreview.exists).ok()
-      .expect(editTicketButton.exists).ok()
-      .expect(closeModal.exists).ok()
-      .click(closeModal)
-    H.StepDescription('should confirm purchase of $5.80 Single draw Lotto dip')
-    await t
-      .expect(ticketSummaryDetails.exists).ok()
-      .expect(ticketCostPerDraw.exists).ok()
-      .expect(ticketCostPerDraw.innerText).eql('$5.60')
-      .expect(totalNumberOfDraws.exists).ok()
-      .expect(totalNumberOfDraws.innerText).eql('x1')
-      .expect(totalTitle.exists).ok()
-      .expect(totalCost.exists).ok()
-      .expect(totalCost.innerText).eql('$5.60')
-      .expect(confirmPurchase.exists).ok()
-      .click(confirmPurchase)
-    H.StepDescription('should display the thanks page')
-    await t
-      .wait(1000)
-      .expect(thanksPageHeader.exists).ok()
-      .expect(thanksIntroDescription.exists).ok()
-      .expect(purchasedTicketHeader.exists).ok()
-      .expect(purchasedTicketHeader.innerText).contains('Draw happening:')
-      .expect(drawDateOfPurchasedTicket.exists).ok()
-      .expect(typeOfPurchasedTicket.exists).ok()
-      .expect(costOfPurchasedTicket.exists).ok()
-    H.StepDescription('should view the details of purchased Lotto dip')
-    await t
-      .expect(viewDetailsButton.exists).ok()
-      .click(viewDetailsButton)
-      .expect(viewPurchasedTicketHeader.exists).ok()
+  H.StepDescription('should preview the $5.80 Lotto dip')
+  await t
+    .expect(powerBallUpSell.exists).ok()
+    .expect(saturdayDraw.exists).ok()
+    .expect(wednesdayDraw.exists).ok()
+    .expect(previewYourSelection.exists).ok()
+    .click(previewYourSelection)
+    .expect(ticketPreview.exists).ok()
+    .expect(editTicketButton.exists).ok()
+    .expect(closeModal.exists).ok()
+    .click(closeModal)
+  H.StepDescription('should confirm purchase of $5.80 Single draw Lotto dip')
+  await t
+    .expect(ticketSummaryDetails.exists).ok()
+    .expect(ticketCostPerDraw.exists).ok()
+    .expect(ticketCostPerDraw.innerText).eql('$5.60')
+    .expect(totalNumberOfDraws.exists).ok()
+    .expect(totalNumberOfDraws.innerText).eql('x1')
+    .expect(totalTitle.exists).ok()
+    .expect(totalCost.exists).ok()
+    .expect(totalCost.innerText).eql('$5.60')
+    .expect(confirmPurchase.exists).ok()
+    .click(confirmPurchase)
+  H.StepDescription('should display the thanks page')
+  await t
+    .wait(1000)
+    .expect(thanksPageHeader.exists).ok()
+    .expect(thanksIntroDescription.exists).ok()
+    .expect(purchasedTicketHeader.exists).ok()
+    .expect(purchasedTicketHeader.innerText).contains('Draw happening:')
+    .expect(drawDateOfPurchasedTicket.exists).ok()
+    .expect(typeOfPurchasedTicket.exists).ok()
+    .expect(costOfPurchasedTicket.exists).ok()
+  H.StepDescription('should view the details of purchased Lotto dip')
+  await t
+    .expect(viewDetailsButton.exists).ok()
+    .click(viewDetailsButton)
+    .expect(viewPurchasedTicketHeader.exists).ok()
       .expect(viewPurchasedTicketBody.exists).ok()
       .click(closeModal)
     H.StepDescription('User logs out')
@@ -288,17 +299,27 @@ test('Purchase Lotto - PYO single draw', async t => {
       .expect(logout.exists).ok()
       .click(closeRightMenu)
     H.StepDescription('should select PYO')
-    if(await LottoStrikeLinkFromTop.exists)
-        {  await t
-              .click(LottoStrikeLinkFromTop)
-              .click(lottoPYO)
-        }
-    else
+//    if(LottoStrikeLinkFromTop.exists)
+//        {  await t
+//              .click(LottoStrikeLinkFromTop)
+//              .click(lottoPYO)
+//        }
+//    else
+//    {
+//           await t
+//              .click(burgerMenuIcon)
+//              .click(lottoStrikeLinkFromLeft)
+//              .click(lottoPYO)
+//    }
+    await t
+      .click(burgerMenuIcon)
+    if(lottoStrikeLinkFromLeft.exists)
     {
-           await t
-              .click(burgerMenuIcon)
-              .click(lottoStrikeLinkFromLeft)
-              .click(lottoPYO)
+      await t
+        .click('#navLottoleft > span.logo')
+    }else{
+      await t
+        .click(LottoStrikeLinkFromTop)
     }
 
     H.StepDescription('should auto select the first 4 lines')
