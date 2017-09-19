@@ -197,6 +197,17 @@ async bank4() {
           text += possible.charAt(Math.floor(Math.random() * possible.length));
         return text;
    }
+
+getWidth() {
+  return Math.max(
+    document.body.scrollWidth,
+    document.documentElement.scrollWidth,
+    document.body.offsetWidth,
+    document.documentElement.offsetWidth,
+    document.documentElement.clientWidth
+  );
+}
+
 async userLogin(email, password)
 {
  await t.click('input[id="nav-menu-account--link"]')
