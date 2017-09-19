@@ -884,8 +884,6 @@ test('Close account', async t => {
 })
 
 test('Spending limits', async t => {
-
-
     H.StepDescription('has navigated to Lotto SIT 1 environment')
     H.StepDescription('should user log in')
     await t

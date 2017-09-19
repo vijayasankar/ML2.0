@@ -28,6 +28,7 @@ const textToPlay = Selector('[href="/lotto/text-service"]')
 const winning = Selector('[href="/winning"]')
 const theWinningExperience = Selector('[href="/the-winning-experience"]')
 const communityFunding = Selector('[href="/community-funding"]')
+const notFound404 =Selector('.not-found')
 
 //Login form components
 const email = Selector('input[id="email"]')
@@ -88,7 +89,7 @@ test('Verify the login workflow', async t => {
       .pressKey('ctrl+a delete')
     H.StepDescription('Enters the valid details in the login form and submit')
     await t
-      .typeText(email, '14aug1@vj.com')
+      .typeText(email, 'lotto1@test.com')
       .typeText(password, 'password1')
       .click(loginSubmit)
     H.StepDescription('Checks the after-login options')
@@ -149,40 +150,54 @@ test('Smoke test : Navigate to all pages - as not-logged-in user', async t => {
     H.StepDescription('should navigate to all games')
     await t
       .click(lottoLogo)
+      .expect(notFound404.exists).notOk()
+
     H.StepDescription('should navigate to Lotto')
     await t
       .click(lottoGame)
+      .expect(notFound404.exists).notOk()
     H.StepDescription('should navigate to Keno')
     await t
       .click(kenoGame)
+      .expect(notFound404.exists).notOk()
     H.StepDescription('should navigate to Bullseye')
     await t
       .click(bullseyeGame)
+      .expect(notFound404.exists).notOk()
     H.StepDescription('should navigate to Play3')
     await t
       .click(play3Game)
+      .expect(notFound404.exists).notOk()
     H.StepDescription('should navigate to Instant Kiwi')
     await t
       .click(instantKiwiGame)
-    H.StepDescription('should navigate to all links from the left menu')
-    await t
-          //TODO page content to be validated for the below pages if necessary
-      .click(menu)
-      .click(play)
-      .click(menu)
-      .click(howToPlay)
-      .click(menu)
-      .click(whereToPlay)
-      .click(menu)
-      .click(subscribe)
-      .click(menu)
-      .click(textToPlay)
-      .click(menu)
-      .click(winning)
-      .click(menu)
-      .click(theWinningExperience)
-      .click(menu)
-      .click(communityFunding)
-
+      .expect(notFound404.exists).notOk()
+  H.StepDescription('should navigate to all links from the left menu')
+  await t
+        //TODO page content to be validated for the below pages if necessary
+    .click(menu)
+    .click(play)
+    .expect(notFound404.exists).notOk()
+    .click(menu)
+    .click(howToPlay)
+    .expect(notFound404.exists).notOk()
+    .click(menu)
+    .click(whereToPlay)
+    //.expect(notFound404.exists).notOk() //TODO Defect
+    .click(menu)
+    .click(subscribe)
+    .expect(notFound404.exists).notOk()
+    .click(menu)
+    .click(textToPlay)
+    .expect(notFound404.exists).notOk()
+    .click(menu)
+    .click(winning)
+    .expect(notFound404.exists).notOk()
+    .click(menu)
+    .click(theWinningExperience)
+    .expect(notFound404.exists).notOk()
+    .click(menu)
+    .click(communityFunding)
+    .expect(notFound404.exists).notOk()
 })
 

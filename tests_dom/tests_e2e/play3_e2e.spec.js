@@ -58,23 +58,13 @@ const play3PickPlayType = Selector('.h3').nth(1)
 const play3PlayNowButton = Selector('#playNow')
 const play3HowMuchCanIWin = Selector('.play3HowMuchCanIWin')
 const play3DescriptionTable = Selector('.play3DescriptionTable')
-
-
-
+//Play now
 const eCommerceBar = Selector('#ecommerceBar')
 const ecommerceBarBuyButton = Selector('#buyButton')
 const buyNowPrice = Selector('.buyNowPrice')
 const buyButton = Selector('#buyButton')
-
-
-
 const closeModal = Selector('#close-modal')
-
-
-
-
 const play3ConfirmPurchasePage = Selector('#confirmation-form')
-
 const previewYourSelection = Selector('#ticket')
 const play3TicketDetailsSummary = Selector('.ticket-totals')
 const play3TicketSummaryGameType = Selector('.lines')
@@ -86,8 +76,6 @@ const play3PricePerDraw = Selector('.ticket-totals').nth(3)
 const play3TicketPreview = Selector('#play3Ticket')
 const editplay3Ticket = Selector('.edit')
 const play3TicketPreviewSummary = Selector('.previewTicketSummary')
-
-
 //PLay3 Thanks Page
 const thanksPageHeader = Selector('#thanksIntroTitle')
 const thanksIntroDescription = Selector('#thanksIntroDescription')
@@ -107,8 +95,6 @@ const bullseyeDrawSummaryPYO = Selector('.gameTicketFooterSummaries')
 const viewPurchasedTicketModal = Selector('.modalUnderlay.ticket-detail-modal')
 const myTicketsDetails =  Selector('.ticketDetailModalHeader').nth(0)
 const saveTheseTicketsForLater = Selector('.ticketDetailModalHeader').nth(1)
-
-
 
 fixture `***** Verify the games in Bullseye family *****`
   .page (config.domTestRootUrl)

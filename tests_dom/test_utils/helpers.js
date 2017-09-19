@@ -207,16 +207,9 @@ getWidth() {
     document.documentElement.clientWidth
   );
 }
+async
 
-async userLogin(email, password)
-{
- await t.click('input[id="nav-menu-account--link"]')
- await t
-    .click('.login')
-    .typeText('input[id="email"]', email)
-    .typeText('input[id="password"]', password)
-    .click('.button.primay.block')
-}
+
 
 async makeFavName() {
         var text = "";
