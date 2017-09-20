@@ -985,27 +985,6 @@ const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFa
 const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
 const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
 
-//  H.StepDescription('should check the browser mode and navigate to games accordingly')
-//  const gamesAtTopAvailable = Selector('.themeNavSecondary')
-//  let isSecondaryNavHidden = false
-//  await gamesAtTopAvailable.getStyleProperty('display').then((res) => {
-//    return isSecondaryNavHidden = res === 'none'
-//  })
-//
-//  if( ! isSecondaryNavHidden) {
-//    await t
-//       .click(LottoStrikeLinkFromTop)
-//
-//  }
-//  else {
-//    await t
-//     .click(burgerMenuIcon)
-//     .click(lottoStrikeLinkFromLeft)
-//  }
-//
-//  H.StepDescription('should select Pick your own')
-//  await t
-//     .click(lottoPYO)
 
   H.StepDescription('should create Lotto favourites from My favourites')
   await t

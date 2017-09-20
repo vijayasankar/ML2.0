@@ -96,91 +96,6 @@ const viewPurchasedTicketModal = Selector('.modalUnderlay.ticket-detail-modal')
 const myTicketsDetails =  Selector('.ticketDetailModalHeader').nth(0)
 const saveTheseTicketsForLater = Selector('.ticketDetailModalHeader').nth(1)
 
-fixture `***** Verify the games in Bullseye family *****`
-  .page (config.domTestRootUrl)
-
-test('Play3 - How to play', async t => {
-    H.StepDescription('has navigated to Lotto SIT 1 environment')
-    H.StepDescription('should login with valid credentials')
-    await t
-      .click(login)
-      .click(loginButton)
-      .typeText(email, 'lotto1@test.com')
-      .typeText(password, 'password1')
-      .click(loginSubmit)
-    H.StepDescription('should confirm the login')
-    await t
-      .expect(rightMenuLoggedIn.exists).ok()
-      .expect(tickets.exists).ok()
-      .click(rightMenuLoggedIn.child(1))
-      .expect(accountDetails.exists).ok()
-      .expect(accountWelcome.exists).ok()
-      .expect(accountEmail.exists).ok()
-      .expect(accountBalance.exists).ok()
-      .expect(topUpButton.exists).ok()
-      .expect(settings.exists).ok()
-      .expect(myTickets.exists).ok()
-      .expect(messages.exists).ok()
-      .expect(favourites.exists).ok()
-      .expect(logout.exists).ok()
-      .click(closeRightMenu)
-    H.StepDescription('should check the contents in Play3 - how to play page')
-    if(play3FromTop.exists)
-        {  await t
-              .click(play3FromTop)
-              .click(play3HowToPlay)
-        }
-    else
-    {
-           await t
-              .click(leftNavigationMenu)
-              .click(play3FromLeft)
-              .click(play3HowToPlay)
-    }
-    await t
-      .expect(play3HowItWorks.exists).ok()
-      .expect(play3HowItWorks.innerText).eql('How it works')
-      .expect(play3Pick3Numbers.exists).ok()
-      .expect(play3Pick3Numbers.innerText).eql('1. Pick a 3-digit number')
-      .expect(play3PickPlayType.exists).ok()
-      .expect(play3PickPlayType.innerText).eql('2. Pick a Play Type')
-      .expect(play3PlayNowButton.exists).ok()
-      .expect(play3PlayNowButton.innerText).eql('PLAY NOW')
-      .expect(play3HowMuchCanIWin.exists).ok()
-      .expect(play3DescriptionTable.exists).ok()
-    H.StepDescription('User logs out')
-    await t
-      .click(rightMenuLoggedIn.child(1))
-      .click(logout)
-      .expect(tickets.exists).notOk()
-})
-
-test('Play3 - Exact order', async t => {
-    H.StepDescription('has navigated to Lotto SIT 1 environment')
-    H.StepDescription('should login with valid credentials')
-    await t
-      .click(login)
-      .click(loginButton)
-      .typeText(email, 'lotto1@test.com')
-      .typeText(password, 'password1')
-      .click(loginSubmit)
-    H.StepDescription('should confirm the login')
-    await t
-      .expect(rightMenuLoggedIn.exists).ok()
-      .expect(tickets.exists).ok()
-      .click(rightMenuLoggedIn.child(1))
-      .expect(accountDetails.exists).ok()
-      .expect(accountWelcome.exists).ok()
-      .expect(accountEmail.exists).ok()
-      .expect(accountBalance.exists).ok()
-      .expect(topUpButton.exists).ok()
-      .expect(settings.exists).ok()
-      .expect(myTickets.exists).ok()
-      .expect(messages.exists).ok()
-      .expect(favourites.exists).ok()
-      .expect(logout.exists).ok()
-      .click(closeRightMenu)
-    H.StepDescription('should check the contents in - Play now ')
 const ecommerceBarText  = Selector('.upSellWrapperText')
 const play3NumberSection = Selector('#play3NumberSelector')
 const play3PlayTypeSection = Selector('.play3TypeSelectorWrapper.form')
@@ -238,112 +153,332 @@ const play3Draw7 = Selector('input[name="drawCount7"]')
 const play3Draw10 = Selector('input[name="drawCount10"]')
 const play3Draw14 = Selector('input[name="drawCount14"]')
 
+//Favourites play3
+const favouritesTab = Selector('#select-page-favourites')
+const createPlay3Favourite = Selector('#addYourFavourite_play3')
+const favouriteName = Selector('#favouriteName')
+const editFavouriteName = Selector('.favouriteTicketName.ticketDetailModalHeader')
+const editTicketButton = Selector('#editYourPlay3Ticket')
+const deleteFavourite = Selector('#favouriteTicketDelete')
 
-    if(play3FromTop.exists)
-        {  await t
-              .click(play3FromTop)
-              .click(playFor$1)
-        }
-    else
-    {
-           await t
-              .click(leftNavigationMenu)
-              .click(play3FromLeft)
-              .click(playFor$1)
-    }
+fixture `***** Verify the games in Bullseye family *****`
+  .page (config.domTestRootUrl)
+  .beforeEach( async t => {
+      H.StepDescription('has navigated to MyLotto Home Page')
+    H.StepDescription('should login with valid credentials')
     await t
-      .expect(play3NumberSection.exists).ok()
-      .expect(play3PlayTypeSection.exists).ok()
-      .expect(play3TicketSection.exists).ok()
-
-    H.StepDescription('should input the number for line A')
-    await t
-      .expect(ecommerceBarText.innerText).eql('Choose a 3 digit number. Need help?\n')
-      .typeText(play3NumberInput1, '1')
-      .typeText(play3NumberInput2, '2')
-      .typeText(play3NumberInput3, '3')
-      .expect(ecommerceBarText.innerText).eql('Choose a Play Type\n')
-
-    H.StepDescription('should select EXACT ORDER type')
-    await t
-      .click(play3Exact)
-      .expect(ecommerceBarText.innerText).eql('Add another number or click \'buy\' to continue\n')
-      .expect(play3PositionA1.innerText).eql('1')
-      .expect(play3PositionA2.innerText).eql('2')
-      .expect(play3PositionA3.innerText).eql('3')
-      .expect(play3Line1PlayType.innerText).eql('Exact order')
-      .expect(play3DeleteLineA.exists).ok()
-       .expect(buyNowPrice.innerText).eql('$1.00')
-       .click(buyButton)
-
-    H.StepDescription('should preview 1-line Play3 ')
-    await t
-      .expect(play3ConfirmPurchasePage.exists).ok()
-      .expect(play3Draw1.exists).ok()
-      .expect(play3Draw1.value).eql('1')
-      .expect(play3Draw2.exists).ok()
-      .expect(play3Draw2.value).eql('2')
-      .expect(play3Draw5.exists).ok()
-      .expect(play3Draw5.value).eql('5')
-      .expect(play3Draw7.exists).ok()
-      .expect(play3Draw7.value).eql('7')
-      .expect(play3Draw10.exists).ok()
-      .expect(play3Draw10.value).eql('10')
-      .expect(play3Draw14.exists).ok()
-      .expect(play3Draw14.value).eql('14')
-      .expect(previewYourSelection.exists).ok()
-      .click(previewYourSelection)
-      .expect(play3TicketPreview.exists).ok()
-      .expect(editplay3Ticket.exists).ok()
-      .expect(closeModal.exists).ok()
-      .click(closeModal)
-
-    H.StepDescription('should confirm purchase of Play3')
-    await t
-      .expect(play3TicketDetailsSummary.exists).ok()
-      .expect(play3TicketSummaryGameType.exists).ok()
-      .expect(play3TicketSummaryGameType.innerText).eql('Line 1')
-      //.expect(bullseyeTotalNumberOfDraws.innerText).eql('1 Line') //TODO Investigate
-//      .expect(bullseyePricePerDraw.exists).ok()
-//      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
-//      .expect(bullseyeTotalCost.exists).ok()
-//      .expect(bullseyeTotalCost.innerText).eql('$2.00')
-      .expect(play3ConfirmPurchase.exists).ok()
-      .click(play3ConfirmPurchase)
-    H.StepDescription('should display the thanks page')
-    await t
-      .expect(thanksPageHeader.exists).ok()
-      .expect(thanksIntroDescription.exists).ok()
-      .expect(purchasedTicketHeader.exists).ok()
-      .expect(purchasedTicketHeader.innerText).contains('Draw happening:')
-      .expect(drawDateOfPurchasedTicket.exists).ok()
-      .expect(typeOfPurchasedTicket.exists).ok()
-      .expect(typeOfPurchasedTicket.innerText).contains('1 line')
-      .expect(costOfPurchasedTicket.exists).ok()
-      .expect(costOfPurchasedTicket.innerText).contains('$1.00')
-
-    H.StepDescription('should view the details of Play3 Ticket')
-    await t
-      .expect(viewDetailsButton.exists).ok()
-      .click(viewDetailsButton)
-      .expect(viewPurchasedTicketHeader.exists).ok()
-      .expect(viewPurchasedTicketBody.exists).ok()
-      .click(closeModal)
-
-    H.StepDescription('should save the play3 PYO as favourite')
-    await t
-      .click(viewDetailsButton)
-      .expect(viewPurchasedTicketModal.exists).ok()
-      .expect(myTicketsDetails.innerText).eql('My tickets details')
-      .expect(saveTheseTicketsForLater.innerText).eql('Save these tickets for later')
-      .click(editNamePYO2Fav)
-      .typeText(editNamePYO2Fav, await H.makeFavName())
-      .click(saveFavName)
-      .expect(closeModal.exists).notOk()
-
+      .click(login)
+      .click(loginButton)
+      .typeText(email, 'lotto1@test.com')
+      .typeText(password, 'password1')
+      .click(loginSubmit)
+  })
+  .afterEach(async t => {
     H.StepDescription('User logs out')
     await t
       .click(rightMenuLoggedIn.child(1))
       .click(logout)
       .expect(tickets.exists).notOk()
+  })
+
+test('Play3 - How to play', async t => {
+  H.StepDescription('should check the contents in Play3 - how to play page')
+  if(play3FromTop.exists)
+      {  await t
+            .click(play3FromTop)
+      }
+  else
+  {
+         await t
+            .click(leftNavigationMenu)
+  }
+
+  await t
+    .click(play3HowToPlay)
+    .expect(play3HowItWorks.exists).ok()
+    .expect(play3HowItWorks.innerText).eql('How it works')
+    .expect(play3Pick3Numbers.exists).ok()
+    .expect(play3Pick3Numbers.innerText).eql('1. Pick a 3-digit number')
+    .expect(play3PickPlayType.exists).ok()
+    .expect(play3PickPlayType.innerText).eql('2. Pick a Play Type')
+    .expect(play3PlayNowButton.exists).ok()
+    .expect(play3PlayNowButton.innerText).eql('PLAY NOW')
+    .expect(play3HowMuchCanIWin.exists).ok()
+    .expect(play3DescriptionTable.exists).ok()
+})
+
+test('Play3 - Exact order - Single draw ', async t => {
+
+  H.StepDescription('should check the contents in - Play now ')
+  if(play3FromTop.exists)
+      {  await t
+          .click(play3FromTop)
+      }
+  else
+  {
+         await t
+          .click(leftNavigationMenu)
+  }
+  await t
+    .click(playFor$1)
+    .expect(play3NumberSection.exists).ok()
+    .expect(play3PlayTypeSection.exists).ok()
+    .expect(play3TicketSection.exists).ok()
+
+  H.StepDescription('should input the number for line A')
+  await t
+    .expect(ecommerceBarText.innerText).eql('Choose a 3 digit number. Need help?\n')
+    .typeText(play3NumberInput1, '1')
+    .typeText(play3NumberInput2, '2')
+    .typeText(play3NumberInput3, '3')
+    .expect(ecommerceBarText.innerText).eql('Choose a Play Type\n')
+
+  H.StepDescription('should select EXACT ORDER type')
+  await t
+    .click(play3Exact)
+    .expect(ecommerceBarText.innerText).eql('Add another number or click \'buy\' to continue\n')
+    .expect(play3PositionA1.innerText).eql('1')
+    .expect(play3PositionA2.innerText).eql('2')
+    .expect(play3PositionA3.innerText).eql('3')
+    .expect(play3Line1PlayType.innerText).eql('Exact order')
+    .expect(play3DeleteLineA.exists).ok()
+    .expect(buyNowPrice.innerText).eql('$1.00')
+    .click(buyButton)
+
+  H.StepDescription('should preview 1-line Play3 ')
+  await t
+    .expect(play3ConfirmPurchasePage.exists).ok()
+    .expect(play3Draw1.exists).ok()
+    .expect(play3Draw1.value).eql('1')
+    .expect(play3Draw2.exists).ok()
+    .expect(play3Draw2.value).eql('2')
+    .expect(play3Draw5.exists).ok()
+    .expect(play3Draw5.value).eql('5')
+    .expect(play3Draw7.exists).ok()
+    .expect(play3Draw7.value).eql('7')
+    .expect(play3Draw10.exists).ok()
+    .expect(play3Draw10.value).eql('10')
+    .expect(play3Draw14.exists).ok()
+    .expect(play3Draw14.value).eql('14')
+    .expect(previewYourSelection.exists).ok()
+    .click(previewYourSelection)
+    .expect(play3TicketPreview.exists).ok()
+    .expect(editplay3Ticket.exists).ok()
+    .expect(closeModal.exists).ok()
+    .click(closeModal)
+
+  H.StepDescription('should confirm purchase of Play3')
+  await t
+    .expect(play3TicketDetailsSummary.exists).ok()
+    .expect(play3TicketSummaryGameType.exists).ok()
+    .expect(play3TicketSummaryGameType.innerText).eql('Line 1')
+    //.expect(bullseyeTotalNumberOfDraws.innerText).eql('1 Line') //TODO Investigate
+//      .expect(bullseyePricePerDraw.exists).ok()
+//      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
+//      .expect(bullseyeTotalCost.exists).ok()
+//      .expect(bullseyeTotalCost.innerText).eql('$2.00')
+    .expect(play3ConfirmPurchase.exists).ok()
+    .click(play3ConfirmPurchase)
+  H.StepDescription('should display the thanks page')
+  await t
+    .expect(thanksPageHeader.exists).ok()
+    .expect(thanksIntroDescription.exists).ok()
+    .expect(purchasedTicketHeader.exists).ok()
+    .expect(purchasedTicketHeader.innerText).contains('Draw happening:')
+    .expect(drawDateOfPurchasedTicket.exists).ok()
+    .expect(typeOfPurchasedTicket.exists).ok()
+    .expect(typeOfPurchasedTicket.innerText).contains('1 line')
+    .expect(costOfPurchasedTicket.exists).ok()
+    .expect(costOfPurchasedTicket.innerText).contains('$1.00')
+
+  H.StepDescription('should view the details of Play3 Ticket')
+  await t
+    .expect(viewDetailsButton.exists).ok()
+    .click(viewDetailsButton)
+    .expect(viewPurchasedTicketHeader.exists).ok()
+    .expect(viewPurchasedTicketBody.exists).ok()
+    .click(closeModal)
+
+  H.StepDescription('should save the play3 PYO as favourite')
+  await t
+    .click(viewDetailsButton)
+    .expect(viewPurchasedTicketModal.exists).ok()
+    .expect(myTicketsDetails.innerText).eql('My tickets details')
+    .expect(saveTheseTicketsForLater.innerText).eql('Save these tickets for later')
+    .click(editNamePYO2Fav)
+    .typeText(editNamePYO2Fav, await H.makeFavName())
+    .click(saveFavName)
+    .expect(closeModal.exists).notOk()
+
+})
+
+test('Play3 - Pairs - Multi draw', async t => {
+
+  H.StepDescription('should check the contents in - Play now ')
+  if(play3FromTop.exists)
+      {  await t
+          .click(play3FromTop)
+      }
+  else
+  {
+         await t
+          .click(leftNavigationMenu)
+  }
+  await t
+    .click(playFor$1)
+    .expect(play3NumberSection.exists).ok()
+    .expect(play3PlayTypeSection.exists).ok()
+    .expect(play3TicketSection.exists).ok()
+
+  H.StepDescription('should autoFill for line A')
+  await t
+    .expect(ecommerceBarText.innerText).eql('Choose a 3 digit number. Need help?\n')
+    .click(play3AutoFill)
+    .expect(ecommerceBarText.innerText).eql('Choose a Play Type\n')
+
+  H.StepDescription('should select PAIRS')
+  await t
+    .click(play3Pairs)
+    .expect(ecommerceBarText.innerText).eql('Add another number or click \'buy\' to continue\n')
+    .expect(play3Line1PlayType.innerText).eql('Pairs')
+    .expect(play3DeleteLineA.exists).ok()
+    .expect(buyNowPrice.innerText).eql('$1.00')
+    .click(buyButton)
+
+  H.StepDescription('should preview 1-line Play3 ')
+  await t
+    .expect(play3ConfirmPurchasePage.exists).ok()
+    .expect(play3Draw1.exists).ok()
+    .expect(play3Draw1.value).eql('1')
+    .expect(play3Draw2.exists).ok()
+    .expect(play3Draw2.value).eql('2')
+    .expect(play3Draw5.exists).ok()
+    .expect(play3Draw5.value).eql('5')
+    .expect(play3Draw7.exists).ok()
+    .expect(play3Draw7.value).eql('7')
+    .expect(play3Draw10.exists).ok()
+    .expect(play3Draw10.value).eql('10')
+    .expect(play3Draw14.exists).ok()
+    .expect(play3Draw14.value).eql('14')
+    .expect(previewYourSelection.exists).ok()
+    .click(previewYourSelection)
+    .expect(play3TicketPreview.exists).ok()
+    .expect(editplay3Ticket.exists).ok()
+    .expect(closeModal.exists).ok()
+    .click(closeModal)
+
+  H.StepDescription('should select 5 draws ')
+  await t
+    .click(play3Draw5.parent())
+  H.StepDescription('should confirm purchase of Play3')
+  await t
+    .expect(play3TicketDetailsSummary.exists).ok()
+    .expect(play3TicketSummaryGameType.exists).ok()
+    .expect(play3TicketSummaryGameType.innerText).eql('Line 1')
+    .expect(play3TotalCost.innerText).eql('$5.00')
+    .expect(play3ConfirmPurchase.exists).ok()
+    .click(play3ConfirmPurchase)
+  H.StepDescription('should display the thanks page')
+  await t
+    .wait(1000)
+    .expect(thanksPageHeader.exists).ok()
+    .expect(thanksIntroDescription.exists).ok()
+    .expect(purchasedTicketHeader.exists).ok()
+    .expect(purchasedTicketHeader.innerText).contains('Next draw happening:')
+    .expect(drawDateOfPurchasedTicket.exists).ok()
+    .expect(typeOfPurchasedTicket.exists).ok()
+    .expect(typeOfPurchasedTicket.innerText).contains('1 line')
+    .expect(costOfPurchasedTicket.exists).ok()
+    .expect(costOfPurchasedTicket.innerText).contains('$1.00')
+    .expect(ticketSummaryThanksPage.innerText).eql('Multiple draws')
+
+  H.StepDescription('should view the details of Play3 Ticket')
+  await t
+    .expect(viewDetailsButton.exists).ok()
+    .click(viewDetailsButton)
+    .expect(viewPurchasedTicketHeader.exists).ok()
+    .expect(viewPurchasedTicketBody.exists).ok()
+    .click(closeModal)
+
+  H.StepDescription('should save the play3 PYO as favourite')
+  await t
+    .click(viewDetailsButton)
+    .expect(viewPurchasedTicketModal.exists).ok()
+    .expect(myTicketsDetails.innerText).eql('My tickets details')
+    .expect(saveTheseTicketsForLater.innerText).eql('Save these tickets for later')
+    .click(editNamePYO2Fav)
+    .typeText(editNamePYO2Fav, await H.makeFavName())
+    .click(saveFavName)
+    .expect(closeModal.exists).notOk()
+
+})
+
+test('Play3 - Favourites - Create/View/Edit/Delete', async t => {
+const updatedFavouriteName = await H.makeFavName()
+const favName = await H.makeFavName()
+const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
+const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
+const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
+
+  H.StepDescription('should create Play3 favourites from My favourites')
+  await t
+    .click(myTickets)
+    .click(favouritesTab)
+    .click(createPlay3Favourite.parent())
+    .click(favouriteName)
+    .typeText(favouriteName, favName)
+
+  H.StepDescription('should autoFill for line A')
+  await t
+    .expect(ecommerceBarText.innerText).eql('Choose a 3 digit number. Need help?\n')
+    .click(play3AutoFill)
+    .expect(ecommerceBarText.innerText).eql('Choose a Play Type\n')
+
+  H.StepDescription('should select PAIRS')
+  await t
+    .click(play3Pairs)
+    .expect(ecommerceBarText.innerText).eql('Choose more lines or click \'save\' to continue\n')
+    .expect(play3Line1PlayType.innerText).eql('Pairs')
+    .expect(play3DeleteLineA.exists).ok()
+    .expect(buyNowPrice.innerText).eql('$1.00')
+    .expect(buyButton.exists).ok()
+    .expect(buyButton.innerText).eql('SAVE\n')
+    .click(buyButton)
+  H.StepDescription('should listed under fav tab')
+    await t
+      .click(myTickets)
+      .click(favouritesTab)
+      .expect(favFromMyFavourites.exists).ok()
+      .expect(viewTicketsForNewFav.exists).ok()
+    H.StepDescription('should open that favourite')
+    await t
+      .click(viewTicketsForNewFav.parent(0).sibling(0))
+    H.StepDescription('should edit the favourite name')
+    await t
+      .click(editFavouriteName)
+      .click(editNamePYO2Fav)
+      .pressKey('ctrl+a delete')
+      //.expect(saveFavName.hasAttribute('disabled')).ok() //TODO defect
+      .typeText(editNamePYO2Fav, updatedFavouriteName)
+      .click(saveFavName)
+
+    H.StepDescription('should edit the favourite numbers')
+    await t
+      .click(viewLatestFavourite.parent(0).sibling(0))
+      .click(editTicketButton)
+      .click(play3AutoFill)
+      .click(play3Pairs)
+      .expect(buyButton.innerText).eql('SAVE\n')
+      .click(buyButton)
+    H.StepDescription('should delete the latest favourite')
+    await t
+      .click(viewLatestFavourite.parent(0).sibling(0))
+      .expect(latestFavFromMyFavourites.innerText).eql(updatedFavouriteName)
+      .click(deleteFavourite)
+      .click(myTickets)
+      .click(favouritesTab)
+      .expect(latestFavFromMyFavourites.exists).notOk()
+
 })
