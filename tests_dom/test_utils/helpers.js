@@ -106,7 +106,7 @@ export default class Helpers {
    * @param {number} idx index of the drop down, starting from 0
    * @returns {string} Name of provider
    */
-  async chooseProvider (idx) {
+async chooseProvider (idx) {
     const loadingModal = Selector('.modal__loading')
     await t.expect(loadingModal.exists).notOk()
     const providerSelect = Selector('select.header-provider-select')
@@ -116,25 +116,27 @@ export default class Helpers {
     return await option.innerText
   }
 
-  async chooseSecurityQuestion (idx) {
+async chooseSecurityQuestion (idx) {
     const newSecurityQuestion = Selector('#securityQuestion')
     await t.click(newSecurityQuestion)
     const option = await newSecurityQuestion.child('option').nth(idx)
     await t.click(option)
     return await option.innerText
   }
- async makeEmail() {
-    var strValues = "abcdefghijklmnopqrstuvwxyz1234567890";
-    var strEmail = "";
-    var strTmp;
-    for (var i = 0; i < 6; i++) {
-        strTmp = strValues.charAt(Math.round(strValues.length * Math.random()));
-        strEmail = strEmail + strTmp;
-        }
-        strTmp = "";
-        strEmail = strEmail + "@sit1.com"
-    return strEmail;
+
+async makeEmail() {
+  var strValues = "abcdefghijklmnopqrstuvwxyz1234567890";
+  var strEmail = "";
+  var strTmp;
+  for (var i = 0; i < 6; i++) {
+      strTmp = strValues.charAt(Math.round(strValues.length * Math.random()));
+      strEmail = strEmail + strTmp;
+      }
+      strTmp = "";
+      strEmail = strEmail + "@sit1.com"
+  return strEmail;
 }
+
 async makePhoneNumber() {
         var text = "";
         var possible = "1234567890";
@@ -166,6 +168,53 @@ ibmdb.open("DATABASE=ESI_DB;HOSTNAME=192.168.225.66;PORT=50000;UID=gtkinst1;PWD=
 });
 }
 
+async resetSpendingLimit()
+//This function resets the spendingLimit for lotto1@test.com
+{
+return new Promise((resolve, reject) => {
+var ibmdb = require('ibm_db');
+var code = "";
+ibmdb.open("DATABASE=ESI_DB;HOSTNAME=192.168.225.66;PORT=50000;UID=gtkinst1;PWD=gtkinst1;PROTOCOL=TCPIP", function (err,conn) {
+  if (err) reject(err);
+  conn.query('update nzdev.es_account set acct_trial_weekly = 1, acct_trial_monthly = 1 where acct_userid = "106225085" and acct_type = 1;', function (err, data) {
+    if (err)  {
+    console.log(err);
+    reject(err)
+    }
+    else (
+    console.log(data));
+    conn.close(function () {
+    console.log('done');
+    });
+    resolve(data);
+  } );
+});
+});
+}
+
+async updateWalletBalance()
+//This function resets the spendingLimit for lotto1@test.com
+{
+return new Promise((resolve, reject) => {
+var ibmdb = require('ibm_db');
+var code = "";
+ibmdb.open("DATABASE=ESI_DB;HOSTNAME=192.168.225.66;PORT=50000;UID=gtkinst1;PWD=gtkinst1;PROTOCOL=TCPIP", function (err,conn) {
+  if (err) reject(err);
+  conn.query('update nzdev.es_account set acct_balance = 500 where (acct_type = 1 and acct_userid = 106225085);', function (err, data) {
+    if (err)  {
+    console.log(err);
+    reject(err)
+    }
+    else (
+    console.log(data));
+    conn.close(function () {
+    console.log('done');
+    });
+    resolve(data);
+  } );
+});
+});
+}
 async bank1() {
         var text = "";
         var possible = "01";
@@ -198,19 +247,6 @@ async bank4() {
         return text;
    }
 
-getWidth() {
-  return Math.max(
-    document.body.scrollWidth,
-    document.documentElement.scrollWidth,
-    document.body.offsetWidth,
-    document.documentElement.offsetWidth,
-    document.documentElement.clientWidth
-  );
-}
-async
-
-
-
 async makeFavName() {
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -220,3 +256,15 @@ async makeFavName() {
 
         return text;
    }   }
+
+const endAnimationWatcher = ClientFunction(() => {
+    return new Promise(resolve => {
+        var interval = setInterval(() => {
+            if (document.querySelector('.spinner'))
+                return;
+
+            clearInterval(interval);
+            resolve();
+        }, 100);
+    });
+});

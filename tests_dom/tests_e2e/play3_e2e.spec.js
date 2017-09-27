@@ -5,6 +5,7 @@ import config from '../test_utils/config'
 const H = new Helpers()
 // entry points
 //Lotto LandingPage components - Before login
+const burgerMenuIcon = Selector('#nav-menu-main-menu')
 const menu = Selector('.navDesc').withText('Menu')
 const results = Selector('.results')
 const lottoLogo = Selector('.navLottoLogo')
@@ -169,8 +170,8 @@ fixture `***** Verify the games in Bullseye family *****`
     await t
       .click(login)
       .click(loginButton)
-      .typeText(email, 'lotto1@test.com')
-      .typeText(password, 'password1')
+      .typeText(email, config.userName)
+      .typeText(password, config.password)
       .click(loginSubmit)
   })
   .afterEach(async t => {
@@ -182,15 +183,22 @@ fixture `***** Verify the games in Bullseye family *****`
   })
 
 test('Play3 - How to play', async t => {
-  H.StepDescription('should check the contents in Play3 - how to play page')
-  if(play3FromTop.exists)
-      {  await t
-            .click(play3FromTop)
-      }
-  else
-  {
-         await t
-            .click(leftNavigationMenu)
+  H.StepDescription('should check the browser mode and navigate to games accordingly')
+  const gamesAtTopAvailable = Selector('.themeNavSecondary')
+  let isSecondaryNavHidden = false
+  await gamesAtTopAvailable.getStyleProperty('display').then((res) => {
+    return isSecondaryNavHidden = res === 'none'
+  })
+
+  if( ! isSecondaryNavHidden) {
+    await t
+       .click(play3FromTop)
+
+  }
+  else {
+    await t
+     .click(burgerMenuIcon)
+     .click(play3FromLeft)
   }
 
   await t
@@ -209,16 +217,23 @@ test('Play3 - How to play', async t => {
 
 test('Play3 - Exact order - Single draw ', async t => {
 
-  H.StepDescription('should check the contents in - Play now ')
-  if(play3FromTop.exists)
-      {  await t
-          .click(play3FromTop)
-      }
-  else
-  {
-         await t
-          .click(leftNavigationMenu)
-  }
+   H.StepDescription('should check the browser mode and navigate to games accordingly')
+   const gamesAtTopAvailable = Selector('.themeNavSecondary')
+   let isSecondaryNavHidden = false
+   await gamesAtTopAvailable.getStyleProperty('display').then((res) => {
+     return isSecondaryNavHidden = res === 'none'
+   })
+
+   if( ! isSecondaryNavHidden) {
+     await t
+        .click(play3FromTop)
+
+   }
+   else {
+     await t
+      .click(burgerMenuIcon)
+      .click(play3FromLeft)
+   }
   await t
     .click(playFor$1)
     .expect(play3NumberSection.exists).ok()
@@ -228,9 +243,11 @@ test('Play3 - Exact order - Single draw ', async t => {
   H.StepDescription('should input the number for line A')
   await t
     .expect(ecommerceBarText.innerText).eql('Choose a 3 digit number. Need help?\n')
-    .typeText(play3NumberInput1, '1')
-    .typeText(play3NumberInput2, '2')
-    .typeText(play3NumberInput3, '3')
+    .click(play3Number1)
+    .click(play3Number2)
+    .click(play3Number3)
+    //.typeText(play3NumberInput2, '2')
+    //.typeText(play3NumberInput3, '3')
     .expect(ecommerceBarText.innerText).eql('Choose a Play Type\n')
 
   H.StepDescription('should select EXACT ORDER type')
@@ -281,6 +298,7 @@ test('Play3 - Exact order - Single draw ', async t => {
     .click(play3ConfirmPurchase)
   H.StepDescription('should display the thanks page')
   await t
+    .wait(2000)
     .expect(thanksPageHeader.exists).ok()
     .expect(thanksIntroDescription.exists).ok()
     .expect(purchasedTicketHeader.exists).ok()
@@ -314,15 +332,22 @@ test('Play3 - Exact order - Single draw ', async t => {
 
 test('Play3 - Pairs - Multi draw', async t => {
 
-  H.StepDescription('should check the contents in - Play now ')
-  if(play3FromTop.exists)
-      {  await t
-          .click(play3FromTop)
-      }
-  else
-  {
-         await t
-          .click(leftNavigationMenu)
+  H.StepDescription('should check the browser mode and navigate to games accordingly')
+  const gamesAtTopAvailable = Selector('.themeNavSecondary')
+  let isSecondaryNavHidden = false
+  await gamesAtTopAvailable.getStyleProperty('display').then((res) => {
+    return isSecondaryNavHidden = res === 'none'
+  })
+
+  if( ! isSecondaryNavHidden) {
+    await t
+       .click(play3FromTop)
+
+  }
+  else {
+    await t
+     .click(burgerMenuIcon)
+     .click(play3FromLeft)
   }
   await t
     .click(playFor$1)
@@ -380,7 +405,7 @@ test('Play3 - Pairs - Multi draw', async t => {
     .click(play3ConfirmPurchase)
   H.StepDescription('should display the thanks page')
   await t
-    .wait(1000)
+    .wait(2000)
     .expect(thanksPageHeader.exists).ok()
     .expect(thanksIntroDescription.exists).ok()
     .expect(purchasedTicketHeader.exists).ok()

@@ -1,7 +1,7 @@
 {
-  "name": "nib-underground-provider-portal",
+  "name": "solnet-lottoNZ",
   "version": "0.0.1",
-  "description": "Provider Portal for nib NZ",
+  "description": "MyLotto 2.0",
   "main": "index.js",
   "engines": {
     "node": ">=4.5.0",
@@ -17,13 +17,16 @@
     "test": "better-npm-run test",
     "test:bamboo": "better-npm-run test -R mocha-bamboo-reporter",
     "test:dev": "npm run test -- --watch",
-    "dom-test": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/*.spec.js",
-    "e2e-test": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
-    "e2e-browser-test": "./node_modules/.bin/testcafe --color chrome,firefox,ie,edge  tests_dom/tests_e2e/**/*.spec.js",
-    "e2e-chrome-test": "./node_modules/.bin/testcafe --color chrome tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
-    "e2e-headless-test": "./node_modules/.bin/testcafe --color chrome:headless tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
-    "e2e-iPhone-test": "./node_modules/.bin/testcafe --color chrome:emulation:device=iphone 6 tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
-    "e2e-android-test": "./node_modules/.bin/testcafe --color chrome:emulation:device=Nexus 6P tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
+    "play3": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/tests_e2e/**/play3_e2e.spec.js --skip-js-errors",
+    "bullseye": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/tests_e2e/**/bullseye_e2e.spec.js --skip-js-errors",
+    "keno": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/tests_e2e/**/keno_e2e.spec.js --skip-js-errors",
+    "lotto": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/tests_e2e/**/lotto_e2e.spec.js --skip-js-errors",
+    "regression": "./node_modules/.bin/testcafe --color electron:tests_dom/test_utils/electron_browser.js tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
+    "browser": "./node_modules/.bin/testcafe --color chrome,firefox,ie,edge  tests_dom/tests_e2e/**/*.spec.js",
+    "chrome": "./node_modules/.bin/testcafe --color chrome tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
+    "headless": "./node_modules/.bin/testcafe --color chrome:headless tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
+    "iPhone": "./node_modules/.bin/testcafe --color chrome:emulation:device=iphone 6 tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
+    "android": "./node_modules/.bin/testcafe --color chrome:emulation:device=Nexus 6P tests_dom/tests_e2e/**/*.spec.js --skip-js-errors",
     "karma-test": "better-npm-run karma-test",
     "karma-test:dev": "npm run karma-test -- --watch",
     "deploy": "better-npm-run deploy",
@@ -107,9 +110,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/nib-nz/nib.undergound"
+    "url": "TBD"
   },
-  "author": "nib NZ, Solnet Solutions Ltd",
+  "author": "Solnet Solutions Ltd",
   "license": "UNLICENSED",
   "dependencies": {
     "babel-core": "^6.23.1",

@@ -1,7 +1,9 @@
 // !!!!! NOTE: changing domTestRootUrl also requires changing .testcafe-electron-rc
 let config = {
-  domTestRootUrl: 'https://1.sit.mylotto.co.nz/',
+  domTestRootUrl: 'https://2.sit.mylotto.co.nz/',
   //sit2Url: 'https://2.sit.mylotto.co.nz/',
+  userName: 'automation@sit2.com', //Update the userID for spendingLimits and updateWalletBalance in helper.js
+  password: 'password1',
   showBrowser: true,
   devTools: false
 }
@@ -13,6 +15,6 @@ if (process.env.NODE_ENV !== 'development') {
   // }
 }
 
-console.log('===> tests_dom config = ', config)
+console.log('===> tests are running using the following config parameters = ', config)
 
 module.exports = config
