@@ -2,7 +2,8 @@
 let config = {
   domTestRootUrl: 'https://2.sit.mylotto.co.nz/',
   //sit2Url: 'https://2.sit.mylotto.co.nz/',
-  userName: 'automation@sit2.com', //Update the userID for spendingLimits and updateWalletBalance in helper.js
+  userName: 'automation@sit2.com', //SIT2 userName
+//  userName: 'lotto1@test.com', //Update the userID for spendingLimits and updateWalletBalance in helper.js
   password: 'password1',
   showBrowser: true,
   devTools: false

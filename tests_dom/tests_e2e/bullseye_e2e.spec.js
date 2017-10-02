@@ -567,7 +567,7 @@ test('Bullseye PYO - manual selection', async t => {
     .expect(viewPurchasedTicketHeader.exists).ok()
     .expect(viewPurchasedTicketBody.exists).ok()
     .click(closeModal)
-
+    
   H.StepDescription('should save the bullseye PYO as favourite')
   await t
     .click(viewDetailsButton)

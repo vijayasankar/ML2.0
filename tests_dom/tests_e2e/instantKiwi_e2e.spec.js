@@ -101,7 +101,7 @@ test('Check the Instant Kiwi games ', async t => {
     .expect(ticketHeaderInModal.exists).ok()
     .expect(ticketTitleInModal.exists).ok()
     .expect(ticketInfo.exists).ok()
-    .expect(ticketImageInModal.exists).ok()
+    //.expect(ticketImageInModal.exists).ok()
     .expect(ticketSummaryInModal.exists).ok()
     //.expect(bigWinnersInModal.exists).ok()
     //.expect(prizeBreakDownInModal.exists).ok()
@@ -143,11 +143,9 @@ test('Check the Instant Kiwi games ', async t => {
     .expect(ticketHeaderInModal.exists).ok()
     .expect(ticketTitleInModal.exists).ok()
     .expect(ticketInfo.exists).ok()
-    .expect(ticketImageInModal.exists).ok()
+    //.expect(ticketImageInModal.exists).ok()
     .expect(ticketSummaryInModal.exists).ok()
     //.expect(bigWinnersInModal.exists).ok()
     //.expect(prizeBreakDownInModal.exists).ok()
     .click(closeModal)
 })
-
-

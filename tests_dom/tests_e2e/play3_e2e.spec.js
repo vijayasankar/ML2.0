@@ -1,6 +1,7 @@
 import { Selector } from 'testcafe'
 import Helpers from '../test_utils/helpers'
 import config from '../test_utils/config'
+import { ClientFunction } from 'testcafe';
 
 const H = new Helpers()
 // entry points
@@ -182,6 +183,18 @@ fixture `***** Verify the games in Bullseye family *****`
       .expect(tickets.exists).notOk()
   })
 
+  const endAnimationWatcher = ClientFunction(() => {
+      return new Promise(resolve => {
+          var interval = setInterval(() => {
+              if (document.querySelector('.spinner'))
+                  return;
+
+              clearInterval(interval);
+              resolve();
+          }, 100);
+      });
+  });
+
 test('Play3 - How to play', async t => {
   H.StepDescription('should check the browser mode and navigate to games accordingly')
   const gamesAtTopAvailable = Selector('.themeNavSecondary')
@@ -297,8 +310,9 @@ test('Play3 - Exact order - Single draw ', async t => {
     .expect(play3ConfirmPurchase.exists).ok()
     .click(play3ConfirmPurchase)
   H.StepDescription('should display the thanks page')
+  await endAnimationWatcher();
   await t
-    .wait(2000)
+    .wait(3000)
     .expect(thanksPageHeader.exists).ok()
     .expect(thanksIntroDescription.exists).ok()
     .expect(purchasedTicketHeader.exists).ok()
@@ -404,8 +418,9 @@ test('Play3 - Pairs - Multi draw', async t => {
     .expect(play3ConfirmPurchase.exists).ok()
     .click(play3ConfirmPurchase)
   H.StepDescription('should display the thanks page')
+  await endAnimationWatcher();
   await t
-    .wait(2000)
+    .wait(3000)
     .expect(thanksPageHeader.exists).ok()
     .expect(thanksIntroDescription.exists).ok()
     .expect(purchasedTicketHeader.exists).ok()
