@@ -1,6 +1,7 @@
 import { Selector } from 'testcafe'
 import Helpers from '../test_utils/helpers'
 import config from '../test_utils/config'
+import { ClientFunction } from 'testcafe'
 
 const H = new Helpers()
 // entry points
@@ -173,8 +174,19 @@ fixture `***** Verify the games in Bullseye family *****`
     await t
       .click(rightMenuLoggedIn.child(1))
       .click(logout)
-      .expect(tickets.exists).notOk()
-  })
+    .expect(tickets.exists).notOk()
+})
+const endAnimationWatcher = ClientFunction(() => {
+    return new Promise(resolve => {
+        var interval = setInterval(() => {
+            if (document.querySelector('.spinner'))
+                return;
+
+            clearInterval(interval);
+            resolve();
+        }, 100);
+    });
+});
 
 test('Bullseye Dip - 2 dollar option', async t => {
   H.StepDescription('should check the browser mode and navigate to games accordingly')
@@ -185,7 +197,7 @@ test('Bullseye Dip - 2 dollar option', async t => {
 
   if( ! isSecondaryNavHidden) {
     await t
-       .click(bullseyeFromTop)
+     .click(bullseyeFromTop)
 
   }
   else {
@@ -220,15 +232,16 @@ test('Bullseye Dip - 2 dollar option', async t => {
     .expect(bullseyeTicketSummaryGameType.exists).ok()
     .expect(bullseyeTicketSummaryGameType.innerText).eql('Bullseye')
     //.expect(bullseyeTotalNumberOfDraws.innerText).eql('1 Line') //TODO Investigate
-//      .expect(bullseyePricePerDraw.exists).ok()
-//      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
-//      .expect(bullseyeTotalCost.exists).ok()
-//      .expect(bullseyeTotalCost.innerText).eql('$2.00')
-    .expect(bullseyeConfirmPurchase.exists).ok()
-    .click(bullseyeConfirmPurchase)
+  //      .expect(bullseyePricePerDraw.exists).ok()
+  //      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
+  //      .expect(bullseyeTotalCost.exists).ok()
+  //      .expect(bullseyeTotalCost.innerText).eql('$2.00')
+      .expect(bullseyeConfirmPurchase.exists).ok()
+      .click(bullseyeConfirmPurchase)
   H.StepDescription('should display the thanks page')
+  await endAnimationWatcher();
   await t
-    .wait(2000)
+    .wait(3000)
     .expect(thanksPageHeader.exists).ok()
     .expect(thanksIntroDescription.exists).ok()
     .expect(purchasedTicketHeader.exists).ok()
@@ -250,67 +263,68 @@ test('Bullseye Dip - 2 dollar option', async t => {
 })
 
 test('Bullseye Dip - Dip slider option', async t => {
-  H.StepDescription('should check the browser mode and navigate to games accordingly')
-  let isSecondaryNavHidden = false
-  await gamesAtTopAvailable.getStyleProperty('display').then((res) => {
-    return isSecondaryNavHidden = res === 'none'
-  })
+    H.StepDescription('should check the browser mode and navigate to games accordingly')
+    let isSecondaryNavHidden = false
+    await gamesAtTopAvailable.getStyleProperty('display').then((res) => {
+      return isSecondaryNavHidden = res === 'none'
+    })
 
-  if( ! isSecondaryNavHidden) {
+    if( ! isSecondaryNavHidden) {
+      await t
+         .click(bullseyeFromTop)
+
+    }
+    else {
+      await t
+       .click(burgerMenuIcon)
+       .click(bullseyeFromLeft)
+    }
     await t
-       .click(bullseyeFromTop)
-
-  }
-  else {
+      .click(bullseyeBuyADip)
+      .expect(bullseyeDipsSlider.exists).ok()
+      .typeText(bullseyeDipsSlider, '1')
+      .expect(buyNowPrice.innerText).eql('$2.00')
+      .expect(buyButton.exists).ok()
+      .click(buyButton)
+    H.StepDescription('should preview 1-line Bullseye dip')
     await t
-     .click(burgerMenuIcon)
-     .click(bullseyeFromLeft)
-  }
-  await t
-    .click(bullseyeBuyADip)
-    .expect(bullseyeDipsSlider.exists).ok()
-    .typeText(bullseyeDipsSlider, '1')
-    .expect(buyNowPrice.innerText).eql('$2.00')
-    .expect(buyButton.exists).ok()
-    .click(buyButton)
-  H.StepDescription('should preview 1-line Bullseye dip')
-  await t
-    .expect(bullseyeConfirmPurchasePage.exists).ok()
-    .expect(bullseye1draw.exists).ok()
-    //.expect(bullseye1draw.hasClass('.check')).ok()
-    .expect(bullseye3draws.exists).ok()
-    .expect(bullseye7draws.exists).ok()
-    .expect(bullseye14draws.exists).ok()
-    .expect(previewYourSelection.exists).ok()
-    .click(previewYourSelection)
-    .expect(bullseyeTicketPreview.exists).ok()
-    .expect(editBullseyeTicket.exists).ok()
-    .expect(closeModal.exists).ok()
-    .click(closeModal)
+      .expect(bullseyeConfirmPurchasePage.exists).ok()
+      .expect(bullseye1draw.exists).ok()
+      //.expect(bullseye1draw.hasClass('.check')).ok()
+      .expect(bullseye3draws.exists).ok()
+      .expect(bullseye7draws.exists).ok()
+      .expect(bullseye14draws.exists).ok()
+      .expect(previewYourSelection.exists).ok()
+      .click(previewYourSelection)
+      .expect(bullseyeTicketPreview.exists).ok()
+      .expect(editBullseyeTicket.exists).ok()
+      .expect(closeModal.exists).ok()
+      .click(closeModal)
 
-  H.StepDescription('should add one more line')
-  await t
-    .click(previewYourSelection)
-    .click(editBullseyeTicket)
-    .typeText(bullseyeDipsSlider, '2')
-    .expect(buyNowPrice.innerText).eql('$4.00')
-    .click(buyButton)
+    H.StepDescription('should add one more line')
+    await t
+      .click(previewYourSelection)
+      .click(editBullseyeTicket)
+      .typeText(bullseyeDipsSlider, '2')
+      .expect(buyNowPrice.innerText).eql('$4.00')
+      .click(buyButton)
 
-  H.StepDescription('should confirm purchase of $2 Bullseye dip')
-  await t
-    .expect(bullseyeTicketDetailsSummary.exists).ok()
-    .expect(bullseyeTicketSummaryGameType.exists).ok()
-    .expect(bullseyeTicketSummaryGameType.innerText).eql('Bullseye')
-    //.expect(bullseyeTotalNumberOfDraws.innerText).eql('1 Line') //TODO Investigate
-//      .expect(bullseyePricePerDraw.exists).ok()
-//      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
-//      .expect(bullseyeTotalCost.exists).ok()
-//      .expect(bullseyeTotalCost.innerText).eql('$2.00')
+    H.StepDescription('should confirm purchase of $2 Bullseye dip')
+    await t
+      .expect(bullseyeTicketDetailsSummary.exists).ok()
+      .expect(bullseyeTicketSummaryGameType.exists).ok()
+      .expect(bullseyeTicketSummaryGameType.innerText).eql('Bullseye')
+      //.expect(bullseyeTotalNumberOfDraws.innerText).eql('1 Line') //TODO Investigate
+  //      .expect(bullseyePricePerDraw.exists).ok()
+  //      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
+  //      .expect(bullseyeTotalCost.exists).ok()
+  //      .expect(bullseyeTotalCost.innerText).eql('$2.00')
     .expect(bullseyeConfirmPurchase.exists).ok()
     .click(bullseyeConfirmPurchase)
   H.StepDescription('should display the thanks page')
+  await endAnimationWatcher();
   await t
-    .wait(2000)
+    .wait(3000)
     .expect(thanksPageHeader.exists).ok()
     .expect(thanksIntroDescription.exists).ok()
     .expect(purchasedTicketHeader.exists).ok()
@@ -327,7 +341,7 @@ test('Bullseye Dip - Dip slider option', async t => {
     .click(viewDetailsButton)
     .expect(viewPurchasedTicketHeader.exists).ok()
     .expect(viewPurchasedTicketBody.exists).ok()
-    .click(closeModal)
+  .click(closeModal)
 })
 
 test('Bullseye PYO - Autofill', async t => {
@@ -393,15 +407,16 @@ test('Bullseye PYO - Autofill', async t => {
     .expect(bullseyeTicketSummaryGameType.exists).ok()
     .expect(bullseyeTicketSummaryGameType.innerText).eql('Bullseye')
     //.expect(bullseyeTotalNumberOfDraws.innerText).eql('1 Line') //TODO Investigate
-//      .expect(bullseyePricePerDraw.exists).ok()
-//      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
-//      .expect(bullseyeTotalCost.exists).ok()
-//      .expect(bullseyeTotalCost.innerText).eql('$2.00')
+  //      .expect(bullseyePricePerDraw.exists).ok()
+  //      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
+  //      .expect(bullseyeTotalCost.exists).ok()
+  //      .expect(bullseyeTotalCost.innerText).eql('$2.00')
     .expect(bullseyeConfirmPurchase.exists).ok()
     .click(bullseyeConfirmPurchase)
   H.StepDescription('should display the thanks page')
+  await endAnimationWatcher();
   await t
-    .wait(2000)
+    .wait(3000)
     .expect(thanksPageHeader.exists).ok()
     .expect(thanksIntroDescription.exists).ok()
     .expect(purchasedTicketHeader.exists).ok()
@@ -437,168 +452,169 @@ test('Bullseye PYO - manual selection', async t => {
   H.StepDescription('should check the browser mode and navigate to games accordingly')
   let isSecondaryNavHidden = false
   await gamesAtTopAvailable.getStyleProperty('display').then((res) => {
-    return isSecondaryNavHidden = res === 'none'
+  return isSecondaryNavHidden = res === 'none'
   })
 
   if( ! isSecondaryNavHidden) {
-    await t
-       .click(bullseyeFromTop)
+  await t
+     .click(bullseyeFromTop)
 
   }
   else {
-    await t
-     .click(burgerMenuIcon)
-     .click(bullseyeFromLeft)
+  await t
+   .click(burgerMenuIcon)
+   .click(bullseyeFromLeft)
   }
   await t
-    .click(bullseyePYO.parent())
-    .expect(bullseyeDipsSlider.exists).notOk()
-    .expect(bullseyeNumberPad.exists).ok()
-    .expect(bullseyeTicketSection.exists).ok()
-    .expect(bullseyeRowA.exists).ok()
-    .expect(bullseyeRefresh.exists).notOk()
-    .expect(bullseyeDeleteLineA.exists).notOk()
-    .click(bullseyeNumber1)
-    .expect(bullseyePositionA1.innerText).eql('1')
-    .click(bullseyeNumber2)
-    .expect(bullseyePositionA2.innerText).eql('2')
-    .click(bullseyeNumber3)
-    .expect(bullseyePositionA3.innerText).eql('3')
-    .click(bullseyeNumber4)
-    .expect(bullseyePositionA4.innerText).eql('4')
-    .click(bullseyeNumber5)
-    .expect(bullseyePositionA5.innerText).eql('5')
-    .click(bullseyeNumber6)
-    .expect(bullseyePositionA6.innerText).eql('6')
+  .click(bullseyePYO.parent())
+  .expect(bullseyeDipsSlider.exists).notOk()
+  .expect(bullseyeNumberPad.exists).ok()
+  .expect(bullseyeTicketSection.exists).ok()
+  .expect(bullseyeRowA.exists).ok()
+  .expect(bullseyeRefresh.exists).notOk()
+  .expect(bullseyeDeleteLineA.exists).notOk()
+  .click(bullseyeNumber1)
+  .expect(bullseyePositionA1.innerText).eql('1')
+  .click(bullseyeNumber2)
+  .expect(bullseyePositionA2.innerText).eql('2')
+  .click(bullseyeNumber3)
+  .expect(bullseyePositionA3.innerText).eql('3')
+  .click(bullseyeNumber4)
+  .expect(bullseyePositionA4.innerText).eql('4')
+  .click(bullseyeNumber5)
+  .expect(bullseyePositionA5.innerText).eql('5')
+  .click(bullseyeNumber6)
+  .expect(bullseyePositionA6.innerText).eql('6')
   H.StepDescription('should manually pick numbers for line 2')
   await t
-    .click(bullseyeNumber7)
-    //.expect(bullseyePositionB1.innerText).eql('7')
-    .click(bullseyeNumber8)
-    //.expect(bullseyePositionB2.innerText).eql('8')
-    .click(bullseyeNumber9)
-    //.expect(bullseyePositionB3.innerText).eql('9')
-    .click(bullseyeNumber0)
-    //.expect(bullseyePositionB4.innerText).eql('0')
-    .click(bullseyeNumber0)
-    //.expect(bullseyePositionB5.innerText).eql('0')
+  .click(bullseyeNumber7)
+  //.expect(bullseyePositionB1.innerText).eql('7')
+  .click(bullseyeNumber8)
+  //.expect(bullseyePositionB2.innerText).eql('8')
+  .click(bullseyeNumber9)
+  //.expect(bullseyePositionB3.innerText).eql('9')
+  .click(bullseyeNumber0)
+  //.expect(bullseyePositionB4.innerText).eql('0')
+  .click(bullseyeNumber0)
+  //.expect(bullseyePositionB5.innerText).eql('0')
 
   H.StepDescription('should reset the numbers in line 2')
   await t
-    .expect(bullseyeReset.exists).ok()
-    .click(bullseyeReset)
+  .expect(bullseyeReset.exists).ok()
+  .click(bullseyeReset)
 
-   H.StepDescription('should manually pick numbers again for line 2')
-   await t
-     .click(bullseyeNumber7)
-     .click(bullseyeNumber5)
-     .click(bullseyeNumber3)
-     .click(bullseyeNumber6)
-     .click(bullseyeNumber5)
+  H.StepDescription('should manually pick numbers again for line 2')
+  await t
+   .click(bullseyeNumber7)
+   .click(bullseyeNumber5)
+   .click(bullseyeNumber3)
+   .click(bullseyeNumber6)
+   .click(bullseyeNumber5)
   H.StepDescription('should delete the numbers in line 2')
   await t
-    .expect(bullseyeDelete.exists).ok()
-    .click(bullseyeDelete)
-//      .expect(bullseyePositionB6.innerText).eql('6')
-    .click(bullseyeDelete)
-    .click(bullseyeDelete)
-    .click(bullseyeDelete)
-    .click(bullseyeDelete)
-    .expect(buyNowPrice.innerText).eql('$2.00')
-    .click(buyButton)
+  .expect(bullseyeDelete.exists).ok()
+  .click(bullseyeDelete)
+  //      .expect(bullseyePositionB6.innerText).eql('6')
+  .click(bullseyeDelete)
+  .click(bullseyeDelete)
+  .click(bullseyeDelete)
+  .click(bullseyeDelete)
+  .expect(buyNowPrice.innerText).eql('$2.00')
+  .click(buyButton)
 
   H.StepDescription('should preview 1-line Bullseye PYO')
   await t
-    .expect(bullseyeConfirmPurchasePage.exists).ok()
-    .expect(bullseye1draw.exists).ok()
-    //.expect(bullseye1draw.hasClass('.check')).ok()
-    .expect(bullseye3draws.exists).ok()
-    .expect(bullseye7draws.exists).ok()
-    .expect(bullseye14draws.exists).ok()
-    .expect(previewYourSelection.exists).ok()
-    .click(previewYourSelection)
-    .expect(bullseyeTicketPreview.exists).ok()
-    .expect(editBullseyeTicket.exists).ok()
-    .expect(closeModal.exists).ok()
-    .click(closeModal)
+  .expect(bullseyeConfirmPurchasePage.exists).ok()
+  .expect(bullseye1draw.exists).ok()
+  //.expect(bullseye1draw.hasClass('.check')).ok()
+  .expect(bullseye3draws.exists).ok()
+  .expect(bullseye7draws.exists).ok()
+  .expect(bullseye14draws.exists).ok()
+  .expect(previewYourSelection.exists).ok()
+  .click(previewYourSelection)
+  .expect(bullseyeTicketPreview.exists).ok()
+  .expect(editBullseyeTicket.exists).ok()
+  .expect(closeModal.exists).ok()
+  .click(closeModal)
 
   H.StepDescription('should add one more line')
   await t
-    .click(previewYourSelection)
-    .click(editBullseyeTicket)
-    .click(bullseyeNumber7)
-    .click(bullseyeNumber4)
-    .click(bullseyeNumber1)
-    .click(bullseyeNumber2)
-    .click(bullseyeNumber5)
-    .click(bullseyeNumber8)
-    .expect(buyNowPrice.innerText).eql('$4.00')
-    .click(buyButton)
+  .click(previewYourSelection)
+  .click(editBullseyeTicket)
+  .click(bullseyeNumber7)
+  .click(bullseyeNumber4)
+  .click(bullseyeNumber1)
+  .click(bullseyeNumber2)
+  .click(bullseyeNumber5)
+  .click(bullseyeNumber8)
+  .expect(buyNowPrice.innerText).eql('$4.00')
+  .click(buyButton)
 
   H.StepDescription('should confirm purchase of Bullseye numbers')
   await t
-    .expect(bullseyeTicketDetailsSummary.exists).ok()
-    .expect(bullseyeTicketSummaryGameType.exists).ok()
-    .expect(bullseyeTicketSummaryGameType.innerText).eql('Bullseye')
-    //.expect(bullseyeTotalNumberOfDraws.innerText).eql('1 Line') //TODO Investigate
-//      .expect(bullseyePricePerDraw.exists).ok()
-//      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
-//      .expect(bullseyeTotalCost.exists).ok()
-//      .expect(bullseyeTotalCost.innerText).eql('$2.00')
-    .expect(bullseyeConfirmPurchase.exists).ok()
-    .click(bullseyeConfirmPurchase)
+  .expect(bullseyeTicketDetailsSummary.exists).ok()
+  .expect(bullseyeTicketSummaryGameType.exists).ok()
+  .expect(bullseyeTicketSummaryGameType.innerText).eql('Bullseye')
+  //.expect(bullseyeTotalNumberOfDraws.innerText).eql('1 Line') //TODO Investigate
+  //      .expect(bullseyePricePerDraw.exists).ok()
+  //      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
+  //      .expect(bullseyeTotalCost.exists).ok()
+  //      .expect(bullseyeTotalCost.innerText).eql('$2.00')
+  .expect(bullseyeConfirmPurchase.exists).ok()
+  .click(bullseyeConfirmPurchase)
   H.StepDescription('should display the thanks page')
+  await endAnimationWatcher();
   await t
-    .wait(2000)
-    .expect(thanksPageHeader.exists).ok()
-    .expect(thanksIntroDescription.exists).ok()
-    .expect(purchasedTicketHeader.exists).ok()
-    .expect(purchasedTicketHeader.innerText).contains('Draw happening:')
-    .expect(drawDateOfPurchasedTicket.exists).ok()
-    .expect(typeOfPurchasedTicket.exists).ok()
-    .expect(typeOfPurchasedTicket.innerText).contains('2 lines')
-    .expect(costOfPurchasedTicket.exists).ok()
-    .expect(costOfPurchasedTicket.innerText).contains('$4.00')
+    .wait(3000)
+  .expect(thanksPageHeader.exists).ok()
+  .expect(thanksIntroDescription.exists).ok()
+  .expect(purchasedTicketHeader.exists).ok()
+  .expect(purchasedTicketHeader.innerText).contains('Draw happening:')
+  .expect(drawDateOfPurchasedTicket.exists).ok()
+  .expect(typeOfPurchasedTicket.exists).ok()
+  .expect(typeOfPurchasedTicket.innerText).contains('2 lines')
+  .expect(costOfPurchasedTicket.exists).ok()
+  .expect(costOfPurchasedTicket.innerText).contains('$4.00')
 
   H.StepDescription('should view the details of $4 Bullseye PYO')
   await t
-    .expect(viewDetailsButton.exists).ok()
-    .click(viewDetailsButton)
-    .expect(viewPurchasedTicketHeader.exists).ok()
-    .expect(viewPurchasedTicketBody.exists).ok()
-    .click(closeModal)
-    
+  .expect(viewDetailsButton.exists).ok()
+  .click(viewDetailsButton)
+  .expect(viewPurchasedTicketHeader.exists).ok()
+  .expect(viewPurchasedTicketBody.exists).ok()
+  .click(closeModal)
+
   H.StepDescription('should save the bullseye PYO as favourite')
   await t
-    .click(viewDetailsButton)
-    .expect(viewPurchasedTicketModal.exists).ok()
-    .expect(myTicketsDetails.innerText).eql('My tickets details')
-    .expect(saveTheseTicketsForLater.innerText).eql('Save these tickets for later')
-    .click(editNamePYO2Fav)
-    .typeText(editNamePYO2Fav, await H.makeFavName())
-    .click(saveFavName)
-    .expect(closeModal.exists).notOk()
+  .click(viewDetailsButton)
+  .expect(viewPurchasedTicketModal.exists).ok()
+  .expect(myTicketsDetails.innerText).eql('My tickets details')
+  .expect(saveTheseTicketsForLater.innerText).eql('Save these tickets for later')
+  .click(editNamePYO2Fav)
+  .typeText(editNamePYO2Fav, await H.makeFavName())
+  .click(saveFavName)
+  .expect(closeModal.exists).notOk()
 })
 
 test('Bullseye - How to play', async t => {
-  H.StepDescription('should check the browser mode and navigate to games accordingly')
-  let isSecondaryNavHidden = false
-  await gamesAtTopAvailable.getStyleProperty('display').then((res) => {
+    H.StepDescription('should check the browser mode and navigate to games accordingly')
+    let isSecondaryNavHidden = false
+    await gamesAtTopAvailable.getStyleProperty('display').then((res) => {
     return isSecondaryNavHidden = res === 'none'
-  })
+    })
 
-  if( ! isSecondaryNavHidden) {
+    if( ! isSecondaryNavHidden) {
     await t
        .click(bullseyeFromTop)
 
-  }
-  else {
+    }
+    else {
     await t
      .click(burgerMenuIcon)
      .click(bullseyeFromLeft)
-  }
+    }
 
-  await t
+    await t
     .click(bullseyeHowToPlay)
     .expect(bullseyeHowItWorks.exists).ok()
     .expect(bullseyeHowItWorks.innerText).eql('How it works')
@@ -609,40 +625,40 @@ test('Bullseye - How to play', async t => {
 })
 
 test('Bullseye - Favourites - Create/View/Edit/Delete', async t => {
-const updatedFavouriteName = await H.makeFavName()
-const favName = await H.makeFavName()
-const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
-const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
-const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
+    const updatedFavouriteName = await H.makeFavName()
+    const favName = await H.makeFavName()
+    const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
+    const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
+    const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+    const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+    const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
 
-  H.StepDescription('should create Play3 favourites from My favourites')
-  await t
-    .click(myTickets)
-    .click(favouritesTab)
-    .click(createBullseyeFavourite.parent())
-    .click(favouriteName)
-    .typeText(favouriteName, favName)
-  H.StepDescription('should pick numbers for line A')
-  await t
-    .expect(ecommerceBarText.innerText).eql('Choose a number from 000000 to 999999. Need help?\n')
-    .click(bullseyeNumber1)
-    .expect(bullseyePositionA1.innerText).eql('1')
-    .click(bullseyeNumber2)
-    .expect(bullseyePositionA2.innerText).eql('2')
-    .click(bullseyeNumber3)
-    .expect(bullseyePositionA3.innerText).eql('3')
-    .click(bullseyeNumber4)
-    .expect(bullseyePositionA4.innerText).eql('4')
-    .click(bullseyeNumber5)
-    .expect(bullseyePositionA5.innerText).eql('5')
-    .click(bullseyeNumber6)
-    .expect(bullseyePositionA6.innerText).eql('6')
-    .expect(ecommerceBarText.innerText).eql('Add another number or click \'save\' to continue\n')
-    .expect(buyButton.innerText).eql('SAVE\n')
-    .click(buyButton)
-  H.StepDescription('should listed under fav tab')
+    H.StepDescription('should create Play3 favourites from My favourites')
+    await t
+      .click(myTickets)
+      .click(favouritesTab)
+      .click(createBullseyeFavourite.parent())
+      .click(favouriteName)
+      .typeText(favouriteName, favName)
+    H.StepDescription('should pick numbers for line A')
+    await t
+      .expect(ecommerceBarText.innerText).eql('Choose a number from 000000 to 999999. Need help?\n')
+      .click(bullseyeNumber1)
+      .expect(bullseyePositionA1.innerText).eql('1')
+      .click(bullseyeNumber2)
+      .expect(bullseyePositionA2.innerText).eql('2')
+      .click(bullseyeNumber3)
+      .expect(bullseyePositionA3.innerText).eql('3')
+      .click(bullseyeNumber4)
+      .expect(bullseyePositionA4.innerText).eql('4')
+      .click(bullseyeNumber5)
+      .expect(bullseyePositionA5.innerText).eql('5')
+      .click(bullseyeNumber6)
+      .expect(bullseyePositionA6.innerText).eql('6')
+      .expect(ecommerceBarText.innerText).eql('Add another number or click \'save\' to continue\n')
+      .expect(buyButton.innerText).eql('SAVE\n')
+      .click(buyButton)
+    H.StepDescription('should listed under fav tab')
     await t
       .click(myTickets)
       .click(favouritesTab)

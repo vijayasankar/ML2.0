@@ -125,10 +125,10 @@ fixture `***** User setup *****`
   .page (config.domTestRootUrl)
 
 test('Register new user', async t => {
-const bank1 = await H.bank1()
-const bank2 = await H.bank2()
-const bank3 = await H.bank3()
-const bank4 = await H.bank4()
+  const bank1 = await H.bank1()
+  const bank2 = await H.bank2()
+  const bank3 = await H.bank3()
+  const bank4 = await H.bank4()
 
   H.StepDescription('should go to Registration form')
   const newUserEmail = await H.makeEmail()
@@ -240,8 +240,8 @@ const bank4 = await H.bank4()
 })
 
 test('Register new user with new credit card', async t => {
-const bank3 = await H.bank3()
-const bank4 = await H.bank4()
+  const bank3 = await H.bank3()
+  const bank4 = await H.bank4()
   H.StepDescription('should go to Registration form')
   const newUserEmail = await H.makeEmail()
   await t
@@ -420,4 +420,3 @@ const bank4 = await H.bank4()
     .click(logout)
     .expect(tickets.exists).notOk()
 })
-

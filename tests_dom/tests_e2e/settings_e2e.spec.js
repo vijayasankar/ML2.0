@@ -668,13 +668,13 @@ test('Create text service', async t => {
     .typeText(mobileNumber, '123452')
   H.StepDescription('should select the ticket type')
   const tripleDip28 = Selector('.pill').nth(0)
-await t
+  await t
   .click(tripleDip28.parent())
   H.StepDescription('should save the text service settings')
   //TODO
   //  .expect(saveTextService.exists).ok()
 
-})
+  })
 
 test('Block games', async t => {
   H.StepDescription('Clicks on Settings')
@@ -869,20 +869,20 @@ test('Spending limits', async t => {
   const newWeeklySpendingLimit = currentWeeklySpendingLimit - 1
   const weeklyLimitSlider = Selector('input[name="weeklySpendingLimit"]')
       await t
-//      .expect(weeklyLimitSlider.exists).ok()
-//      .click(weeklyLimitSlider)
-//      .typeText(weeklyLimitSlider, '140' )
-//      console.log(weeklyLimitSlider.getStyleProperty)
-//      .expect(weeklyLimitSlider.value).eql('140')
-//      .click(slider)
-//      .expect(weeklySpendingLimitSlider.value).eql('150')
-//      .setTestSpeed(0.1)
+  //      .expect(weeklyLimitSlider.exists).ok()
+  //      .click(weeklyLimitSlider)
+  //      .typeText(weeklyLimitSlider, '140' )
+  //      console.log(weeklyLimitSlider.getStyleProperty)
+  //      .expect(weeklyLimitSlider.value).eql('140')
+  //      .click(slider)
+  //      .expect(weeklySpendingLimitSlider.value).eql('150')
+  //      .setTestSpeed(0.1)
     //TODO .drag(slider, -180, -5, { offsetX: 500, offsetY: 10 })
-//      .debug()
-//      .drag(weeklySpendingLimitSlider, -180, -5, { offsetX: 485, offsetY: 11 })
-//      .drag(weeklySpendingLimitSlider, -180, -5, { offsetX: 490, offsetY: 11 })
-//      .drag(weeklySpendingLimitSlider, -180, -5, { offsetX: 495, offsetY: 11 })
-//      .drag(weeklySpendingLimitSlider, -180, -5, { offsetX: 500, offsetY: 11 })
+  //      .debug()
+  //      .drag(weeklySpendingLimitSlider, -180, -5, { offsetX: 485, offsetY: 11 })
+  //      .drag(weeklySpendingLimitSlider, -180, -5, { offsetX: 490, offsetY: 11 })
+  //      .drag(weeklySpendingLimitSlider, -180, -5, { offsetX: 495, offsetY: 11 })
+  //      .drag(weeklySpendingLimitSlider, -180, -5, { offsetX: 500, offsetY: 11 })
     //.drag(weeklySpendingLimitSlider, 360, 5)
     //.expect(weeklySpendingLimitSlider.value).eql('100');
       //.pressKey('tab tab tab')
@@ -1070,25 +1070,19 @@ test('Withdraw funds', async t => {
 
   H.StepDescription('should withdraw the minimum amount')
   const doneButton = Selector('.modalFormContainer .button.primary.block')
- // if (currentWalletBalance.value > '10')//TODO - This condition to be satisfied
+  // if (currentWalletBalance.value > '10')//TODO - This condition to be satisfied
    await t
-         .click(amountToWithdraw)
-         .typeText(amountToWithdraw,'10')
-         .click(withdrawFundsPassword)
-         .typeText(withdrawFundsPassword, 'password1')
-         .click(withdrawFundsSubmitButton)
-         .expect(withdrawFundsSuccessModal.exists).ok()
-         .expect(doneButton.exists).ok()
-         .click(doneButton)
+     .click(amountToWithdraw)
+     .typeText(amountToWithdraw,'10')
+     .click(withdrawFundsPassword)
+     .typeText(withdrawFundsPassword, 'password1')
+     .click(withdrawFundsSubmitButton)
+     .expect(withdrawFundsSuccessModal.exists).ok()
+     .expect(doneButton.exists).ok()
+     .click(doneButton)
         // .click(withdrawFundsCloseModal)
        //  .pressKey('tab tab enter')  //TODO workaround to tap on DONE button
-         //.click(withdrawDoneButton)
-
-//    else
-//    { await t
-//        .click(withdrawFundsCloseModal)
-//    }
-
+       //.click(withdrawDoneButton)
 
 })
 
@@ -1101,13 +1095,13 @@ test('Top up with internet banking', async t => {
     .expect(myDetailsSection.exists).ok()
     .expect(myFundsSection.exists).ok()
   H.StepDescription('should check the elements in internet banking modal')
-const topUpWithInternetBankingLink = Selector('#topUpInternetBanking')
-const topUpWithInternetBankingModal = Selector('.top-up-header-title')
-const topUpWithInternetBankingHeader = Selector('.top-up-header-strapline')
-const currentBalance = Selector('#your-current-balance-result-amount')
-const internetBankingInstructions = Selector('#internet-banking-title')
-const internetBankingNotesSection = Selector('#internet-banking-note-title')
-const closeInternetBankingModal = Selector('#close-modal')
+  const topUpWithInternetBankingLink = Selector('#topUpInternetBanking')
+  const topUpWithInternetBankingModal = Selector('.top-up-header-title')
+  const topUpWithInternetBankingHeader = Selector('.top-up-header-strapline')
+  const currentBalance = Selector('#your-current-balance-result-amount')
+  const internetBankingInstructions = Selector('#internet-banking-title')
+  const internetBankingNotesSection = Selector('#internet-banking-note-title')
+  const closeInternetBankingModal = Selector('#close-modal')
   await t
     .expect(topUpWithInternetBankingModal.exists).notOk()
     .click(topUpWithInternetBankingLink.parent())

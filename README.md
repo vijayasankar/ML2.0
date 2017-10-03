@@ -2,6 +2,10 @@
 
 A React web app (NZ).
 
+<a href="https://github.com/DevExpress/testcafe">
+    <img alt="Tested with TestCafe" src="https://img.shields.io/badge/tested%20with-TestCafe-2fa4cf.svg">
+</a>
+
 ## Table of Contents
 1. [Template Origin](#template-origin)
 1. [Requirements](#requirements)
@@ -193,4 +197,3 @@ This starter kit comes packaged with an Express server. It's important to note t
 ### Production Optimization
 
 Babel is configured to use [babel-plugin-transform-runtime](https://www.npmjs.com/package/babel-plugin-transform-runtime) so transforms aren't inlined. In production, webpack will extract styles to a `.css` file, minify your JavaScript, and perform additional optimizations such as module deduplication.
-

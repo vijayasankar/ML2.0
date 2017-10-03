@@ -303,10 +303,10 @@ test('Play3 - Exact order - Single draw ', async t => {
     .expect(play3TicketSummaryGameType.exists).ok()
     .expect(play3TicketSummaryGameType.innerText).eql('Line 1')
     //.expect(bullseyeTotalNumberOfDraws.innerText).eql('1 Line') //TODO Investigate
-//      .expect(bullseyePricePerDraw.exists).ok()
-//      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
-//      .expect(bullseyeTotalCost.exists).ok()
-//      .expect(bullseyeTotalCost.innerText).eql('$2.00')
+  //      .expect(bullseyePricePerDraw.exists).ok()
+  //      .expect(bullseyePricePerDraw.innerText).eql('$2.00')
+  //      .expect(bullseyeTotalCost.exists).ok()
+  //      .expect(bullseyeTotalCost.innerText).eql('$2.00')
     .expect(play3ConfirmPurchase.exists).ok()
     .click(play3ConfirmPurchase)
   H.StepDescription('should display the thanks page')
@@ -454,13 +454,13 @@ test('Play3 - Pairs - Multi draw', async t => {
 })
 
 test('Play3 - Favourites - Create/View/Edit/Delete', async t => {
-const updatedFavouriteName = await H.makeFavName()
-const favName = await H.makeFavName()
-const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
-const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
-const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
+  const updatedFavouriteName = await H.makeFavName()
+  const favName = await H.makeFavName()
+  const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
+  const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
+  const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
 
   H.StepDescription('should create Play3 favourites from My favourites')
   await t

@@ -312,13 +312,13 @@ test('Lotto - Dip single draw', async t => {
 
 test('Lotto - PYO single draw', async t => {
 
-const updatedFavouriteName = await H.makeFavName()
-const favName = await H.makeFavName()
-const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
-const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
-const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
+  const updatedFavouriteName = await H.makeFavName()
+  const favName = await H.makeFavName()
+  const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
+  const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
+  const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
 
   H.StepDescription('should check the browser mode and navigate to games accordingly')
   const gamesAtTopAvailable = Selector('.themeNavSecondary')
@@ -850,13 +850,13 @@ test('Strike - Dips single draw', async t => {
 })
 
 test('In purchase Favourites - Lotto and PB', async t => {
-const updatedFavouriteName = await H.makeFavName()
-const favName = await H.makeFavName()
-const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
-const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
-const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
+  const updatedFavouriteName = await H.makeFavName()
+  const favName = await H.makeFavName()
+  const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
+  const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
+  const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
 
   H.StepDescription('should check the browser mode and navigate to games accordingly')
   const gamesAtTopAvailable = Selector('.themeNavSecondary')
@@ -991,14 +991,13 @@ const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nt
 })
 
 test('Favourites - Lotto only - Create/View/Edit/Delete', async t => {
-const updatedFavouriteName = await H.makeFavName()
-const favName = await H.makeFavName()
-const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
-const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
-const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
-
+  const updatedFavouriteName = await H.makeFavName()
+  const favName = await H.makeFavName()
+  const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
+  const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
+  const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
 
   H.StepDescription('should create Lotto favourites from My favourites')
   await t
@@ -1075,13 +1074,13 @@ const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nt
 })
 
 test('Favourites - Lotto PB & Strike - Create/View/Edit/Delete', async t => {
-const updatedFavouriteName = await H.makeFavName()
-const favName = await H.makeFavName()
-const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
-const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
-const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
+  const updatedFavouriteName = await H.makeFavName()
+  const favName = await H.makeFavName()
+  const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
+  const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
+  const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
 
   H.StepDescription('should create Lotto favourites from My favourites')
   await t
@@ -1158,13 +1157,13 @@ const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nt
 })
 
 test('Favourites - Lotto & PB - Create/View/Edit/Delete', async t => {
-const updatedFavouriteName = await H.makeFavName()
-const favName = await H.makeFavName()
-const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
-const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
-const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
+  const updatedFavouriteName = await H.makeFavName()
+  const favName = await H.makeFavName()
+  const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
+  const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
+  const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
 
   H.StepDescription('should create Lotto favourites from My favourites')
   await t
@@ -1241,13 +1240,13 @@ const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nt
 })
 
 test('Favourites - Strike only - Create/View/Edit/Delete', async t => {
-const updatedFavouriteName = await H.makeFavName()
-const favName = await H.makeFavName()
-const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
-const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
-const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
-const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
+  const updatedFavouriteName = await H.makeFavName()
+  const favName = await H.makeFavName()
+  const favFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(favName)
+  const viewTicketsForNewFav = Selector(favFromMyFavourites).parent('div').nth(6)
+  const latestFavourite = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const latestFavFromMyFavourites = Selector('.gameTicketFavouriteTitle').withText(updatedFavouriteName)
+  const viewLatestFavourite = Selector(latestFavFromMyFavourites).parent('div').nth(6)
 
   H.StepDescription('should create Strike favourites from My favourites')
   await t
