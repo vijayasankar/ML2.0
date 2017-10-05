@@ -160,11 +160,15 @@ fixture `***** Verify the games in Keno family *****`
   })
   .afterEach(async t => {
     H.StepDescription('User logs out')
+    if(!closeModal.exists){
+      await t
+      .click(closeModal)
+    }
     await t
       .click(rightMenuLoggedIn.child(1))
       .click(logout)
       .expect(tickets.exists).notOk()
-  })
+    })
 
 const endAnimationWatcher = ClientFunction(() => {
     return new Promise(resolve => {

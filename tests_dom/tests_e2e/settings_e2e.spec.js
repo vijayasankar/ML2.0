@@ -278,11 +278,15 @@ fixture `***** Verify the Settings page *****`
   })
   .afterEach(async t => {
     H.StepDescription('User logs out')
+    if(!closeModal.exists){
+      await t
+      .click(closeModal)
+    }
     await t
       .click(rightMenuLoggedIn.child(1))
       .click(logout)
       .expect(tickets.exists).notOk()
-  })
+    })
 
 test('Navigate to Messages', async t => {
   H.StepDescription('should open the messages')
