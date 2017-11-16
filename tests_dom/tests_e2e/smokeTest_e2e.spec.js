@@ -62,7 +62,7 @@ const favourites = Selector ('[href="/my-tickets/favourites"]')
 const logout = Selector('.navMenuItem').withText('Log out')
 
 fixture `***** Smoke tests for SIT 1 environment *****`
-  .page (config.domTestRootUrl)
+  .page (config.sitUrl)
 
 test('Verify the login workflow', async t => {
     H.StepDescription('has navigated to Lotto SIT environment')

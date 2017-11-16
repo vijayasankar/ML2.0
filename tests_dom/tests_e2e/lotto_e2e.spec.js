@@ -193,7 +193,7 @@ const numberOfStrikeLines = Selector('#totals-strike-boards')
 const costOfStrikePerDraw = Selector('#totals-strike-cost')
 
 fixture `***** Verify the games in Lotto family *****`
-  .page (config.domTestRootUrl)
+  .page (config.sitUrl)
   .beforeEach( async t => {
       H.StepDescription('has navigated to MyLotto Home Page')
     H.StepDescription('should login with valid credentials')

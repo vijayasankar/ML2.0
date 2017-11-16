@@ -144,7 +144,7 @@ const editTicketButton = Selector('#editYourKenoTicket')
 const deleteFavourite = Selector('#favouriteTicketDelete')
 
 fixture `***** Verify the games in Keno family *****`
-  .page (config.domTestRootUrl)
+  .page (config.sitUrl)
   .before(async t => {await H.updateWalletBalance})
   .after(async t => {await H.resetSpendingLimit})
   .beforeEach( async t => {

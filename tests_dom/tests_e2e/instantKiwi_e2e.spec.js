@@ -49,7 +49,7 @@ const prizeBreakDownInModal = Selector('.prizeBreakdown')
 const viewPastGameLink = Selector('[href="#"]').nth(2)
 const ticketClosedWarning = Selector('.ticketClosed')
 fixture `***** User setup *****`
-  .page (config.domTestRootUrl)
+  .page (config.sitUrl)
 
 test('Check the Instant Kiwi games ', async t => {
   H.StepDescription('should go to MyLotto home page')

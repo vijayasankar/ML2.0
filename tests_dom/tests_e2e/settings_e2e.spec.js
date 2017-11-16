@@ -264,7 +264,7 @@ const topupChildModal = Selector('.form-top-up')
 const topUpIframe = Selector('.pxPayIframe')
 
 fixture `***** Verify the Settings page *****`
-  .page (config.domTestRootUrl)
+  .page (config.sitUrl)
   .beforeEach( async t => {
     //await H.resetSpendingLimit()
     H.StepDescription('has navigated to MyLotto Home Page')

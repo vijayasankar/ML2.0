@@ -122,7 +122,7 @@ const topupChildModal = Selector('.form-top-up')
 const topUpIframe = Selector('.pxPayIframe')
 
 fixture `***** User setup *****`
-  .page (config.domTestRootUrl)
+  .page (config.sitUrl)
 
 test('Register new user', async t => {
   const bank1 = await H.bank1()
@@ -187,7 +187,7 @@ test('Register new user', async t => {
   const activationCodeFromDb = await H.getActivationCode()
   const activationUrl = "activation?activationid="
   await t
-    .navigateTo(config.domTestRootUrl + activationUrl + activationCodeFromDb)
+    .navigateTo(config.sitUrl + activationUrl + activationCodeFromDb)
   H.StepDescription('should activate the user')
   await t
     .expect(emailVerificationSuccessModal.innerText).contains('Log in\n\nYour email address has now been verified.\n\nPlease login to complete the process.')
@@ -299,7 +299,7 @@ test('Register new user with new credit card', async t => {
   const activationCodeFromDb = await H.getActivationCode()
   const activationUrl = "activation?activationid="
   await t
-    .navigateTo(config.domTestRootUrl + activationUrl + activationCodeFromDb)
+    .navigateTo(config.sitUrl + activationUrl + activationCodeFromDb)
   H.StepDescription('should activate the user')
   await t
     .expect(emailVerificationSuccessModal.innerText).contains('Log in\n\nYour email address has now been verified.\n\nPlease login to complete the process.')

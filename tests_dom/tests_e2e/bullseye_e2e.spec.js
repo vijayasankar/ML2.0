@@ -158,7 +158,7 @@ const editTicketButton = Selector('#editYourBullseyeTicket')
 const deleteFavourite = Selector('#favouriteTicketDelete')
 
 fixture `***** Verify the games in Bullseye family *****`
-  .page (config.domTestRootUrl)
+  .page (config.sitUrl)
   .beforeEach( async t => {
       H.StepDescription('has navigated to MyLotto Home Page')
     H.StepDescription('should login with valid credentials')
